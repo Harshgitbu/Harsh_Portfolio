@@ -1,10 +1,12 @@
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
+import Hero from './components/Hero/Hero';
 
 function App() {
   return (
     <>
       <Navbar />
+      <Hero />
       <header id="hero" style={{height: '80vh', padding: '4rem', backgroundColor: '#f7f8fa'}}>
         <h1>Welcome to Harsh Shah's Portfolio</h1>
         <p>Master’s Data Scientist skilled in machine learning, data engineering, and analytics.</p>
