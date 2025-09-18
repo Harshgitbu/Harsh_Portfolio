@@ -1,0 +1,26 @@
+.experience {
+    padding: 4rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #333;
+  }
+  
+  .experience h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #1a73e8;
+  }
+  
+  .experience ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .experience li {
+    margin-bottom: 1.5rem;
+  }
+  
+  .experience strong {
+    font-size: 1.125rem;
+  }
+  
