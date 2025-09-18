@@ -5,6 +5,8 @@ import About from './components/About/About';
 import Experience from './components/Experience/Experience';
 import Projects from './components/Projects/Projects';
 import Skills from './components/Skills/Skills';
+import Contact from './components/Contact/Contact';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -15,10 +17,8 @@ function App() {
       <Experience />
       <Projects />
       <Skills />
-
-      <footer style={{backgroundColor: '#1c2735', color: 'white', textAlign: 'center', padding: '1rem'}}>
-        © 2025 Harsh Shah
-      </footer>
+      <Contact />
+      <Footer />
     </>
   );
 }
