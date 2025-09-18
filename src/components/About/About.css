@@ -1,18 +1,30 @@
 .about {
-    padding: 4rem 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-    color: #333;
-  }
-  
-  .about h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #1a73e8;
-  }
-  
-  .about p {
-    font-size: 1.125rem;
-    line-height: 1.6;
-  }
-  
+  padding: 4rem 2rem;
+  max-width: 850px;
+  margin: 0 auto 4rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.1);
+  font-family: 'Inter', sans-serif;
+  color: #1a2a6c;
+}
+
+.about h2 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #1a73e8;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  letter-spacing: 1.2px;
+}
+
+.about p {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  max-width: 720px;
+  margin: 0 auto;
+  color: #324a81;
+  text-align: justify;
+  padding: 0 1rem;
+  user-select: text;
+}
