@@ -33,3 +33,21 @@
   .navbar-links li a:hover {
     color: #1a73e8;
   }  
+
+  .navbar-links button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0;
+    transition: color 0.3s;
+  }
+  
+  .navbar-links button:hover,
+  .navbar-links button.active {
+    color: #1a73e8;
+    font-weight: 700;
+    outline: none;
+  }
