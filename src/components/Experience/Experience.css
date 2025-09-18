@@ -1,26 +1,80 @@
 .experience {
     padding: 4rem 2rem;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    color: #333;
+    color: #2e3c5d;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
   
   .experience h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
     color: #1a73e8;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 1.2px;
   }
   
   .experience ul {
     list-style: none;
-    padding: 0;
+    padding-left: 0;
   }
   
   .experience li {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-left: 1rem;
+    border-left: 4px solid #1a73e8;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
   }
   
-  .experience strong {
-    font-size: 1.125rem;
+  .experience li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(26, 115, 232, 0.15);
+  }
+  
+  .experience h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #203a73;
+    font-weight: 600;
+  }
+  
+  .company-location {
+    font-style: normal;
+    color: #4f5d75;
+    margin-bottom: 0.15rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  
+  .company-location span {
+    font-weight: 700;
+    color: #1a73e8;
+  }
+  
+  .period {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    color: #566270;
+  }
+  
+  .details {
+    list-style: disc inside;
+    color: #3f4a66;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  
+  .details li {
+    margin-bottom: 0.75rem;
+    padding-left: 0.25rem;
   }
   
