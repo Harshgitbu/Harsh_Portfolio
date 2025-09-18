@@ -3,17 +3,19 @@ import './Navbar.css';
 
 const Navbar = () => {
   const [active, setActive] = useState('hero');
+  const [scrolled, setScrolled] = useState(false);
+
+  const sections = ['hero', 'about', 'experience', 'projects', 'skills', 'contact'];
 
   const handleNavClick = (id) => {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
     setActive(id);
   };
 
-  // Optional: Update active on scroll
   useEffect(() => {
     const onScroll = () => {
-      const sections = ['hero', 'about', 'projects', 'experience', 'skills', 'contact'];
-      let scrollPos = window.scrollY + 200;
+      const scrollPos = window.scrollY + 200;
+      setScrolled(scrollPos > 80); // Shrink after 80px scroll
       for (const id of sections) {
         const elem = document.getElementById(id);
         if (elem && elem.offsetTop <= scrollPos) setActive(id);
@@ -24,14 +26,15 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-logo">Harsh Shah</div>
       <ul className="navbar-links">
-        {['hero', 'about', 'projects', 'experience', 'skills', 'contact'].map((section) => (
+        {sections.map((section) => (
           <li key={section}>
             <button
               className={active === section ? 'active' : ''}
               onClick={() => handleNavClick(section)}
+              aria-current={active === section ? 'page' : undefined}
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}
             </button>
