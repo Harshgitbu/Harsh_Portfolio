@@ -1,10 +1,10 @@
 .hero {
-  min-height: 80vh;
+  min-height: 100vh; /* Full viewport height */
   display: flex;
   justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #e8f0fe 0%, #c2dafc 60%, #8aaefb 100%);
-  color: #1a2a6c; /* Deep blue text for contrast */
+  color: #1a2a6c;
   padding: 0 2rem;
   opacity: 0;
   transform: translateY(20px);
@@ -12,55 +12,5 @@
   text-align: center;
   font-family: 'Inter', sans-serif;
   user-select: none;
-}
-
-.hero.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero-container {
-  max-width: 680px;
-}
-
-.hero-title {
-  font-size: 3.8rem;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  margin-bottom: 0.75rem;
-  color: #0b1a4d; /* Darker navy blue for emphasis */
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-}
-
-.hero-subtitle {
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin-bottom: 2.5rem;
-  line-height: 1.4;
-  letter-spacing: 0.8px;
-  color: #1a2a6c;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
-}
-
-.hero-button {
-  display: inline-block;
-  background-color: #1a73e8; /* Brand blue */
-  color: white;
-  font-weight: 700;
-  font-size: 1.15rem;
-  padding: 0.95rem 3rem;
-  border-radius: 40px;
-  box-shadow: 0 6px 18px rgba(26, 115, 232, 0.4);
-  text-decoration: none;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
-  cursor: pointer;
-  user-select: none;
-}
-
-.hero-button:hover,
-.hero-button:focus {
-  background-color: #155ab6; /* Darker blue on hover */
-  box-shadow: 0 8px 26px rgba(21, 90, 182, 0.6);
-  transform: scale(1.05);
-  outline: none;
+  scroll-margin-top: 80px; /* navbar height offset */
 }
