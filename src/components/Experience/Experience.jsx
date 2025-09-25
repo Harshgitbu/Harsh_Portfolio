@@ -50,12 +50,12 @@ const experiences = [
   },
 ];
 
-const Experience = () => {
-  return (
-    <section className="experience" id="experience">
-      <h2>Experience</h2>
+const Experience = () => (
+  <section id="experience" className="section">
+    <div className="section-inner">
+      <h2 className="section-heading">Experience</h2>
       <ul>
-        {experiences.map(({ role, company, location, period, details }, index) => (
+      {experiences.map(({ role, company, location, period, details }, index) => (
           <li key={index}>
             <h3>{role}</h3>
             <p className="company-location">{company} - <span>{location}</span></p>
@@ -68,8 +68,8 @@ const Experience = () => {
           </li>
         ))}
       </ul>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Experience;

@@ -1,20 +1,24 @@
 import React from 'react';
 import './Navbar.css';
 
-const Navbar = ({ onSectionFocus, activeSection }) => {
+const Navbar = () => {
   const sections = ['hero', 'about', 'experience', 'projects', 'skills', 'contact'];
 
+  // Handle smooth scroll
+  const scrollToSection = (id) => {
+    const elem = document.getElementById(id);
+    if (elem) {
+      elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
-    <nav className={`navbar ${activeSection ? 'scrolled' : ''}`}>
+    <nav className="navbar">
       <div className="navbar-logo">Harsh Shah</div>
       <ul className="navbar-links">
         {sections.map((section) => (
           <li key={section}>
-            <button
-              className={activeSection === section ? 'active' : ''}
-              onClick={() => onSectionFocus(section)}
-              aria-current={activeSection === section ? 'page' : undefined}
-            >
+            <button onClick={() => scrollToSection(section)}>
               {section.charAt(0).toUpperCase() + section.slice(1)}
             </button>
           </li>
