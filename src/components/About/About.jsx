@@ -82,7 +82,7 @@ const About = () => {
               {education.map((edu, index) => (
                 <div key={index} className="education-item">
                   <div className="education-icon">
-                    {index === 0 ? 'MS' : 'BE'}
+                    {index === 0 ? 'MS' : 'BS'}
                   </div>
                   <div className="education-content">
                     <h4>{edu.degree}</h4>
