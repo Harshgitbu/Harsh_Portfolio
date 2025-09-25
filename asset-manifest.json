@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Harsh-Portfolio/static/css/main.a41bd2ef.css",
+    "main.js": "/Harsh-Portfolio/static/js/main.3f7692e7.js",
+    "static/js/453.492cbc22.chunk.js": "/Harsh-Portfolio/static/js/453.492cbc22.chunk.js",
+    "static/media/Linkedin_pro_pic.jpg": "/Harsh-Portfolio/static/media/Linkedin_pro_pic.4e88c4b2a1b58dc345cf.jpg",
+    "static/media/resume.pdf": "/Harsh-Portfolio/static/media/resume.ddd4a0d2256baa13066d.pdf",
+    "index.html": "/Harsh-Portfolio/index.html",
+    "main.a41bd2ef.css.map": "/Harsh-Portfolio/static/css/main.a41bd2ef.css.map",
+    "main.3f7692e7.js.map": "/Harsh-Portfolio/static/js/main.3f7692e7.js.map",
+    "453.492cbc22.chunk.js.map": "/Harsh-Portfolio/static/js/453.492cbc22.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a41bd2ef.css",
+    "static/js/main.3f7692e7.js"
+  ]
+}
