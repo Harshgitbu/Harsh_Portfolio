@@ -1,4 +1,5 @@
 import React from 'react';
+import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Experience.css';
 
 const experiences = [
@@ -13,6 +14,8 @@ const experiences = [
       'Designed user behavior models, improving UI/UX efficiency by 15%.',
       'Explored AI solutions to automate tax categorization, cutting errors by 25%.',
     ],
+    technologies: ['Python', 'SQL', 'Tableau', 'Machine Learning', 'Data Analytics'],
+    achievement: 'Improved operational efficiency by 15% through data-driven insights'
   },
   {
     role: 'Software Developer',
@@ -26,6 +29,8 @@ const experiences = [
       'Implemented role-based access controls and security validations.',
       'Resolved daily software issues via Git workflows ensuring remote vehicle control.',
     ],
+    technologies: ['Azure', 'CI/CD', 'Python', 'API Development', 'Grafana', 'Git'],
+    achievement: 'Enhanced deployment scalability by 85% through Azure CI/CD pipelines'
   },
   {
     role: 'Senior Quality Assurance Specialist',
@@ -37,6 +42,8 @@ const experiences = [
       'Created 100+ automated/manual test plans improving API reliability.',
       'Mentored juniors, boosting team productivity by 25%.',
     ],
+    technologies: ['API Testing', 'Postman', 'ReadyAPI', 'Test Automation', 'Quality Assurance'],
+    achievement: 'Increased team productivity by 25% through mentorship and optimized testing'
   },
   {
     role: 'Android Application Developer Intern',
@@ -47,29 +54,56 @@ const experiences = [
       'Built Android app for truckers to locate nearby parking.',
       'Tested and optimized Android applications enhancing user experience.',
     ],
+    technologies: ['Android', 'Java', 'Mobile Development', 'UI/UX'],
+    achievement: 'Developed functional Android app solving real-world parking challenges'
   },
 ];
 
-const Experience = () => (
-  <section id="experience" className="section">
-    <div className="section-inner">
-      <h2 className="section-heading">Experience</h2>
-      <ul>
-      {experiences.map(({ role, company, location, period, details }, index) => (
-          <li key={index}>
-            <h3>{role}</h3>
-            <p className="company-location">{company} - <span>{location}</span></p>
-            <p className="period">{period}</p>
-            <ul className="details">
-              {details.map((point, i) => (
-                <li key={i}>{point}</li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-);
+const Experience = () => {
+  const [ref, isVisible] = useFadeInOnScroll();
+
+  return (
+    <section id="experience" className="section">
+      <div ref={ref} className={`experience fade-in-section ${isVisible ? 'is-visible' : ''}`}>
+        <h2>Professional Experience</h2>
+        <div className="experience-timeline">
+          {experiences.map(({ role, company, location, period, details, technologies, achievement }, index) => (
+            <div key={index} className="experience-item">
+              <div className="experience-marker"></div>
+              <div className="experience-card">
+                <div className="experience-header">
+                  <div className="experience-title">
+                    <h3 className="experience-role">{role}</h3>
+                    <div className="experience-company">{company}</div>
+                    <div className="experience-location">{location}</div>
+                  </div>
+                  <div className="experience-period">{period}</div>
+                </div>
+                
+                <ul className="experience-details">
+                  {details.map((point, i) => (
+                    <li key={i}>{point}</li>
+                  ))}
+                </ul>
+                
+                {achievement && (
+                  <div className="experience-achievement">
+                    <span className="achievement-label">Key Achievement:</span> {achievement}
+                  </div>
+                )}
+                
+                <div className="experience-tech">
+                  {technologies.map((tech, i) => (
+                    <span key={i} className="tech-tag">{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default Experience;
