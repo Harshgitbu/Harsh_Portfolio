@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
+import resumePdf from './resume.pdf';
+import profileImage from './Linkedin_pro_pic.jpg'; // Fixed import name
 import './Hero.css';
 
-// Import icons (you'll need to install react-icons: npm install react-icons)
+
 import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaArrowDown } from 'react-icons/fa';
 
 const Hero = () => {
@@ -51,11 +53,12 @@ const Hero = () => {
   };
 
   const downloadResume = () => {
-    // Replace with your actual resume file path
     const link = document.createElement('a');
-    link.href = '/resume.pdf'; // Update this path
-    link.download = 'Harsh_Shah_Resume.pdf';
+    link.href = resumePdf;
+    link.download = 'Harsh_Shah_Resume.pdf'; // Better filename
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -86,7 +89,7 @@ const Hero = () => {
               <a href="https://github.com/Harshgitbu" className="social-link" target="_blank" rel="noopener noreferrer">
                 <FaGithub size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/harshshah" className="social-link" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/harsh612/" className="social-link" target="_blank" rel="noopener noreferrer">
                 <FaLinkedin size={20} />
               </a>
               <a href="mailto:shahharsh0612@gmail.com" className="social-link">
@@ -97,7 +100,7 @@ const Hero = () => {
           <div className="hero-image">
             {/* Replace with your actual profile image path */}
             <img 
-              src="/profile-image.jpg" 
+              src={profileImage} 
               alt="Harsh Shah" 
               className="profile-image"
               onError={(e) => {
