@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react'; // Remove useRef import
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import resumePdf from './resume.pdf';
-import profileImage from './Linkedin_pro_pic.jpg'; // Fixed import name
+import profileImage from './Linkedin_pro.jpg';
 import './Hero.css';
-
 
 import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaArrowDown } from 'react-icons/fa';
 
@@ -15,20 +14,21 @@ const Hero = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [ref, isVisible] = useFadeInOnScroll();
 
-  const texts = [
-    "Machine Learning Specialist",
-    "Data Engineering Expert", 
-    "Big Data Analytics",
-    "Cloud Solutions Architect",
-    "AI/ML Researcher"
-  ];
-
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
+    // Move texts array inside useEffect to fix the dependency warning
+    const texts = [
+      "Machine Learning Specialist",
+      "Data Engineering Expert", 
+      "Big Data Analytics",
+      "Cloud Solutions Architect",
+      "AI/ML Researcher"
+    ];
+
     const currentText = texts[currentTextIndex];
     const timeout = setTimeout(() => {
       if (!isDeleting && charIndex < currentText.length) {
@@ -46,7 +46,7 @@ const Hero = () => {
     }, isDeleting ? 50 : 100);
 
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, currentTextIndex, texts]);
+  }, [charIndex, isDeleting, currentTextIndex]); // Remove 'texts' from dependencies
 
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -55,7 +55,7 @@ const Hero = () => {
   const downloadResume = () => {
     const link = document.createElement('a');
     link.href = resumePdf;
-    link.download = 'Harsh_Shah_Resume.pdf'; // Better filename
+    link.download = 'Harsh_Shah_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -98,7 +98,6 @@ const Hero = () => {
             </div>
           </div>
           <div className="hero-image">
-            {/* Replace with your actual profile image path */}
             <img 
               src={profileImage} 
               alt="Harsh Shah" 

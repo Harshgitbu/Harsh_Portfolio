@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react'; // Remove useRef import
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Skills.css';
 
@@ -10,7 +10,7 @@ const Skills = () => {
   const [ref, isVisible] = useFadeInOnScroll();
   const [activeCategory, setActiveCategory] = useState('all');
   const [animated, setAnimated] = useState(false);
-  const skillsRef = useRef(null);
+  // Remove skillsRef since it's not used
 
   const skillCategories = [
     { key: 'all', label: 'All Skills', icon: <FaCode /> },
@@ -70,7 +70,7 @@ const Skills = () => {
     }
   }, [isVisible, animated]);
 
-  const getCategorySkills = (category) => skillsByCategory[category] || [];
+  // Remove getCategorySkills function since it's not used
 
   return (
     <section id="skills" className="section">
@@ -177,7 +177,7 @@ const Skills = () => {
             <span className="overview-label">Skill Categories</span>
           </div>
           <div className="overview-item">
-            <span className="overview-number">10+</span>
+            <span className="overview-number">15+</span>
             <span className="overview-label">Projects Completed</span>
           </div>
         </div>
