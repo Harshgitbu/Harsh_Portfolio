@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'; // Remove useRef import
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import resumePdf from './resume.pdf';
-import profileImage from './Linkedin_pro.jpg';
+import profileImage from './Linkedin_pro_pic.jpg';
 import './Hero.css';
 
 import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaArrowDown } from 'react-icons/fa';
