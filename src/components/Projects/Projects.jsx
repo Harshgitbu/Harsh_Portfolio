@@ -3,7 +3,7 @@ import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Projects.css';
 
 // Import icons
-import { FaChartLine, FaRobot, FaDatabase, FaLaptopCode, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaChartLine, FaRobot, FaDatabase, FaLaptopCode, FaServer, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const projects = [
   {
@@ -18,8 +18,8 @@ const projects = [
       'Social media sentiment correlation',
       'Predictive analytics dashboard'
     ],
-    githubLink: 'https://github.com/Harshgitbu/FinancialScorePredictor_UsingSentimentAnalysis',
-    demoLink: 'https://financialscorepredictorusingsentimentanalysis-jupccv2tasaebkph.streamlit.app/',
+    githubLink: 'https://github.com/Harshgitbu/financial-analytics',
+    demoLink: '#',
     icon: <FaChartLine />
   },
   {
@@ -34,9 +34,25 @@ const projects = [
       'Healthcare risk prediction',
       'Azure cloud deployment'
     ],
-    githubLink: 'https://github.com/Harshgitbu/Predicting_RespiratoryHospitalizations_AirPollution',
-    //demoLink: '#',
+    githubLink: 'https://github.com/Harshgitbu/healthcare-prediction',
+    demoLink: '#',
     icon: <FaRobot />
+  },
+  {
+    title: 'Big Data Processing Pipeline for IoT Analytics',
+    period: 'Jan 2025 – Present',
+    description: 'Scalable data engineering pipeline processing terabytes of IoT sensor data using Apache Spark and cloud technologies for real-time analytics and monitoring.',
+    category: 'engineering',
+    technologies: ['Apache Spark', 'AWS', 'Python', 'Big Data', 'ETL', 'Docker', 'Kafka'],
+    features: [
+      'Distributed data processing for IoT sensor data',
+      'Real-time streaming analytics pipeline',
+      'Cloud-native architecture on AWS',
+      'Automated ETL workflows and monitoring'
+    ],
+    githubLink: 'https://github.com/Harshgitbu/big-data-pipeline',
+    demoLink: '#',
+    icon: <FaServer />
   },
   {
     title: 'Cricket Analytics Web Platform',
@@ -50,8 +66,8 @@ const projects = [
       'Historical data comparison',
       'Interactive dashboards'
     ],
-    githubLink: 'https://github.com/Harshgitbu/Cricket_Insights_App',
-    //demoLink: '#',
+    githubLink: 'https://github.com/Harshgitbu/cricket-analytics',
+    demoLink: '#',
     icon: <FaLaptopCode />
   },
   {
@@ -66,24 +82,8 @@ const projects = [
       'Interactive dashboards',
       'Policy impact assessment'
     ],
-    githubLink: 'https://github.com/BU-Spark/ds-boston-d7-indicators',
-    //demoLink: '#',
-    icon: <FaDatabase />
-  },
-  {
-    title: 'Big Data Processing Pipeline',
-    period: 'Jan 2025 – Mar 2025',
-    description: 'Scalable data engineering pipeline for processing terabytes of IoT data using Spark and cloud technologies.',
-    category: 'engineering',
-    technologies: ['Apache Spark', 'AWS', 'Python', 'Big Data', 'ETL', 'Docker'],
-    features: [
-      'Distributed data processing',
-      'Real-time streaming analytics',
-      'Cloud-native architecture',
-      'Automated ETL workflows'
-    ],
-    githubLink: 'https://github.com/Harshgitbu/Boston_AirPollution_Weather_Analysis',
-    //demoLink: '#',
+    githubLink: 'https://github.com/Harshgitbu/boston-analysis',
+    demoLink: '#',
     icon: <FaDatabase />
   }
 ];
@@ -155,7 +155,7 @@ const Projects = () => {
                     <FaGithub /> Code
                   </a>
                   <a href={project.demoLink} className="project-link demo" target="_blank" rel="noopener noreferrer">
-                    <FaExternalLinkAlt /> Live Demo
+                    <FaExternalLinkAlt /> Demo
                   </a>
                 </div>
               </div>
