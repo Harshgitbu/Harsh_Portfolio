@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from 'react'; // Remove useRef import
+import React, { useState, useEffect } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Skills.css';
 
 // Import icons
 import { FaPython, FaDatabase, FaCloud, FaTools, FaCode, FaRobot, FaChartLine, FaServer, FaAws, FaMicrosoft } from 'react-icons/fa';
-import { SiApachespark, SiTensorflow, SiPytorch, SiScikitlearn, SiTableau, SiDocker, SiKubernetes } from 'react-icons/si';
+import { SiApachespark, SiTensorflow, SiPytorch, SiScikitlearn, SiTableau, SiDocker, SiKubernetes, SiApachekafka } from 'react-icons/si';
 
 const Skills = () => {
   const [ref, isVisible] = useFadeInOnScroll();
   const [activeCategory, setActiveCategory] = useState('all');
   const [animated, setAnimated] = useState(false);
-  // Remove skillsRef since it's not used
+
+  // Helper function to determine skill level class
+  const getSkillLevelClass = (level) => {
+    if (level >= 85) return 'advanced';
+    if (level >= 75) return 'intermediate';
+    if (level >= 60) return 'beginner';
+    return 'novice';
+  };
 
   const skillCategories = [
     { key: 'all', label: 'All Skills', icon: <FaCode /> },
@@ -23,45 +30,51 @@ const Skills = () => {
 
   const skills = [
     // Programming Languages
-    { name: 'Python', level: 95, category: 'languages', icon: <FaPython />, tags: ['Pandas', 'NumPy', 'Scipy'], levelClass: 'advanced' },
-    { name: 'SQL', level: 90, category: 'languages', icon: <FaDatabase />, tags: ['PostgreSQL', 'MySQL', 'SQL Server'], levelClass: 'advanced' },
-    { name: 'R', level: 75, category: 'languages', icon: <FaCode />, tags: ['Statistical Analysis', 'Data Visualization'], levelClass: 'intermediate' },
-    { name: 'JavaScript', level: 70, category: 'languages', icon: <FaCode />, tags: ['React', 'Node.js', 'D3.js'], levelClass: 'intermediate' },
+    { name: 'Python', level: 95, category: 'languages', icon: <FaPython />, tags: ['Pandas', 'NumPy', 'Scipy'] },
+    { name: 'SQL', level: 90, category: 'languages', icon: <FaDatabase />, tags: ['PostgreSQL', 'MySQL', 'SQL Server'] },
+    { name: 'R', level: 75, category: 'languages', icon: <FaCode />, tags: ['Statistical Analysis', 'Data Visualization'] },
+    { name: 'JavaScript', level: 70, category: 'languages', icon: <FaCode />, tags: ['React', 'Node.js', 'D3.js'] },
     
     // Machine Learning
-    { name: 'Machine Learning', level: 90, category: 'ml', icon: <FaRobot />, tags: ['Supervised/Unsupervised', 'Deep Learning'], levelClass: 'advanced' },
-    { name: 'TensorFlow', level: 85, category: 'ml', icon: <SiTensorflow />, tags: ['Keras', 'Neural Networks'], levelClass: 'advanced' },
-    { name: 'PyTorch', level: 80, category: 'ml', icon: <SiPytorch />, tags: ['Deep Learning', 'Research'], levelClass: 'intermediate' },
-    { name: 'Scikit-learn', level: 95, category: 'ml', icon: <SiScikitlearn />, tags: ['ML Algorithms', 'Model Evaluation'], levelClass: 'advanced' },
+    { name: 'Machine Learning', level: 90, category: 'ml', icon: <FaRobot />, tags: ['Supervised/Unsupervised', 'Deep Learning'] },
+    { name: 'TensorFlow', level: 85, category: 'ml', icon: <SiTensorflow />, tags: ['Keras', 'Neural Networks'] },
+    { name: 'PyTorch', level: 80, category: 'ml', icon: <SiPytorch />, tags: ['Deep Learning', 'Research'] },
+    { name: 'Scikit-learn', level: 95, category: 'ml', icon: <SiScikitlearn />, tags: ['ML Algorithms', 'Model Evaluation'] },
     
     // Data Engineering
-    { name: 'Apache Spark', level: 85, category: 'engineering', icon: <SiApachespark />, tags: ['Big Data', 'Distributed Computing'], levelClass: 'advanced' },
-    { name: 'Data Pipelines', level: 90, category: 'engineering', icon: <FaServer />, tags: ['ETL', 'Data Warehousing'], levelClass: 'advanced' },
-    { name: 'Data Modeling', level: 88, category: 'engineering', icon: <FaDatabase />, tags: ['Database Design', 'Normalization'], levelClass: 'advanced' },
+    { name: 'Apache Spark', level: 85, category: 'engineering', icon: <SiApachespark />, tags: ['Big Data', 'Distributed Computing'] },
+    { name: 'Data Pipelines', level: 90, category: 'engineering', icon: <FaServer />, tags: ['ETL', 'Data Warehousing'] },
+    { name: 'Apache Kafka', level: 75, category: 'engineering', icon: <SiApachekafka />, tags: ['Stream Processing', 'Real-time'] },
+    { name: 'Data Modeling', level: 88, category: 'engineering', icon: <FaDatabase />, tags: ['Database Design', 'Normalization'] },
     
     // Cloud & DevOps
-    { name: 'Azure', level: 85, category: 'cloud', icon: <FaMicrosoft />, tags: ['ML Studio', 'Data Factory'], levelClass: 'advanced' },
-    { name: 'AWS', level: 75, category: 'cloud', icon: <FaAws />, tags: ['EC2', 'S3', 'Lambda'], levelClass: 'intermediate' },
-    { name: 'Docker', level: 70, category: 'cloud', icon: <SiDocker />, tags: ['Containerization', 'Microservices'], levelClass: 'intermediate' },
-    { name: 'Kubernetes', level: 65, category: 'cloud', icon: <SiKubernetes />, tags: ['Orchestration', 'Scaling'], levelClass: 'intermediate' },
+    { name: 'Azure', level: 85, category: 'cloud', icon: <FaMicrosoft />, tags: ['ML Studio', 'Data Factory'] },
+    { name: 'AWS', level: 75, category: 'cloud', icon: <FaAws />, tags: ['EC2', 'S3', 'Lambda'] },
+    { name: 'Docker', level: 70, category: 'cloud', icon: <SiDocker />, tags: ['Containerization', 'Microservices'] },
+    { name: 'Kubernetes', level: 65, category: 'cloud', icon: <SiKubernetes />, tags: ['Orchestration', 'Scaling'] },
     
     // Tools & Visualization
-    { name: 'Tableau', level: 80, category: 'tools', icon: <SiTableau />, tags: ['Dashboards', 'Business Intelligence'], levelClass: 'intermediate' },
-    { name: 'Data Visualization', level: 85, category: 'tools', icon: <FaChartLine />, tags: ['Matplotlib', 'Seaborn', 'Plotly'], levelClass: 'advanced' },
-    { name: 'Git', level: 90, category: 'tools', icon: <FaTools />, tags: ['Version Control', 'CI/CD'], levelClass: 'advanced' }
+    { name: 'Tableau', level: 80, category: 'tools', icon: <SiTableau />, tags: ['Dashboards', 'Business Intelligence'] },
+    { name: 'Data Visualization', level: 85, category: 'tools', icon: <FaChartLine />, tags: ['Matplotlib', 'Seaborn', 'Plotly'] },
+    { name: 'Git', level: 90, category: 'tools', icon: <FaTools />, tags: ['Version Control', 'CI/CD'] }
   ];
 
-  const filteredSkills = activeCategory === 'all' 
-    ? skills 
-    : skills.filter(skill => skill.category === activeCategory);
+  // Add levelClass to each skill
+  const skillsWithLevelClass = skills.map(skill => ({
+    ...skill,
+    levelClass: getSkillLevelClass(skill.level)
+  }));
 
-  // Group skills by category for the grid view
+  const filteredSkills = activeCategory === 'all' 
+    ? skillsWithLevelClass 
+    : skillsWithLevelClass.filter(skill => skill.category === activeCategory);
+
   const skillsByCategory = {
-    languages: skills.filter(skill => skill.category === 'languages'),
-    ml: skills.filter(skill => skill.category === 'ml'),
-    engineering: skills.filter(skill => skill.category === 'engineering'),
-    cloud: skills.filter(skill => skill.category === 'cloud'),
-    tools: skills.filter(skill => skill.category === 'tools')
+    languages: skillsWithLevelClass.filter(skill => skill.category === 'languages'),
+    ml: skillsWithLevelClass.filter(skill => skill.category === 'ml'),
+    engineering: skillsWithLevelClass.filter(skill => skill.category === 'engineering'),
+    cloud: skillsWithLevelClass.filter(skill => skill.category === 'cloud'),
+    tools: skillsWithLevelClass.filter(skill => skill.category === 'tools')
   };
 
   useEffect(() => {
@@ -69,8 +82,6 @@ const Skills = () => {
       setAnimated(true);
     }
   }, [isVisible, animated]);
-
-  // Remove getCategorySkills function since it's not used
 
   return (
     <section id="skills" className="section">
@@ -134,7 +145,7 @@ const Skills = () => {
             ))}
           </div>
         ) : (
-          <div className="skills-list" style={{maxWidth: '800px', margin: '0 auto'}}>
+          <div className="skills-list-single">
             {filteredSkills.map((skill, index) => (
               <div key={index} className={`skill-item ${skill.levelClass}`}>
                 <div className="skill-header">
@@ -163,22 +174,23 @@ const Skills = () => {
           </div>
         )}
 
+        {/* Skill Level Legend */}
         <div className="skills-overview">
           <div className="overview-item">
-            <span className="overview-number">{skills.length}+</span>
-            <span className="overview-label">Technologies</span>
+            <span className="overview-number" style={{color: '#10b981'}}>85%+</span>
+            <span className="overview-label">Advanced</span>
           </div>
           <div className="overview-item">
-            <span className="overview-number">3+</span>
-            <span className="overview-label">Years Experience</span>
+            <span className="overview-number" style={{color: '#f59e0b'}}>75-85%</span>
+            <span className="overview-label">Intermediate</span>
           </div>
           <div className="overview-item">
-            <span className="overview-number">5</span>
-            <span className="overview-label">Skill Categories</span>
+            <span className="overview-number" style={{color: '#eab308'}}>60-75%</span>
+            <span className="overview-label">Beginner</span>
           </div>
           <div className="overview-item">
-            <span className="overview-number">15+</span>
-            <span className="overview-label">Projects Completed</span>
+            <span className="overview-number" style={{color: '#ef4444'}}>Below 60%</span>
+            <span className="overview-label">Novice</span>
           </div>
         </div>
       </div>
