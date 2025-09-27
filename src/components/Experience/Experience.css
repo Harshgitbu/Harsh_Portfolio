@@ -1,14 +1,17 @@
 .experience {
   padding: 5rem 2rem;
   max-width: 1200px;
-  margin: 0 auto 6rem;
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(26, 115, 232, 0.12);
+  margin: 0 auto;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 40px rgba(26, 115, 232, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   font-family: 'Inter', sans-serif;
   color: #1a2a6c;
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(26, 115, 232, 0.1);
 }
 
 .experience::before {
@@ -26,16 +29,30 @@
 .experience h2 {
   font-size: 3rem;
   font-weight: 800;
-  color: #1a73e8;
+  color: #1a2a6c;
   margin-bottom: 3rem;
   text-align: center;
-  letter-spacing: -0.5px;
+  position: relative;
   background: linear-gradient(135deg, #1a73e8, #4dabf5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.5px;
 }
 
+.experience h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #1a73e8, #4dabf5);
+  border-radius: 2px;
+}
+
+/* Enhanced Timeline */
 .experience-timeline {
   position: relative;
   max-width: 1000px;
@@ -48,7 +65,7 @@
   left: 30px;
   top: 0;
   bottom: 0;
-  width: 4px;
+  width: 3px;
   background: linear-gradient(to bottom, #1a73e8, #4dabf5, #1a73e8);
   border-radius: 2px;
 }
@@ -66,10 +83,10 @@
 
 .experience-marker {
   position: absolute;
-  left: 22px;
+  left: 24px;
   top: 0;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   background: #1a73e8;
   border: 4px solid white;
   border-radius: 50%;
@@ -81,11 +98,12 @@
 .experience-item:hover .experience-marker {
   transform: scale(1.3);
   background: #4dabf5;
-  box-shadow: 0 0 0 3px #4dabf5, 0 0 20px rgba(26, 115, 232, 0.5);
+  box-shadow: 0 0 0 3px #4dabf5, 0 0 20px rgba(26, 115, 232, 0.3);
 }
 
+/* Enhanced Experience Card */
 .experience-card {
-  background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+  background: linear-gradient(145deg, #ffffff, #f8fbff);
   border-radius: 20px;
   padding: 2.5rem;
   box-shadow: 0 10px 30px rgba(26, 115, 232, 0.1);
@@ -93,21 +111,7 @@
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
-}
-
-.experience-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(26, 115, 232, 0.05), transparent);
-  transition: left 0.6s ease;
-}
-
-.experience-card:hover::before {
-  left: 100%;
+  border: 1px solid rgba(26, 115, 232, 0.1);
 }
 
 .experience-card:hover {
@@ -116,9 +120,10 @@
   border-left-color: #4dabf5;
 }
 
+/* Enhanced Header */
 .experience-header {
   display: flex;
-  justify-content: between;
+  justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
@@ -136,6 +141,10 @@
   color: #1a2a6c;
   margin-bottom: 0.5rem;
   line-height: 1.3;
+  background: linear-gradient(135deg, #1a2a6c, #2e3c5d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .experience-company {
@@ -154,14 +163,20 @@
 .experience-period {
   background: linear-gradient(135deg, #1a73e8, #4dabf5);
   color: white;
-  padding: 0.5rem 1.2rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 25px;
   font-size: 0.9rem;
   font-weight: 600;
   white-space: nowrap;
   box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+  transition: all 0.3s ease;
 }
 
+.experience-card:hover .experience-period {
+  transform: scale(1.05);
+}
+
+/* Enhanced Details */
 .experience-details {
   list-style: none;
   padding: 0;
@@ -184,37 +199,56 @@
   left: 0;
   color: #1a73e8;
   font-weight: bold;
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
 }
 
 .experience-details li:hover {
   color: #1a2a6c;
+  transform: translateX(5px);
 }
 
 .experience-details li:hover::before {
-  transform: translateX(5px);
   color: #4dabf5;
+  transform: scale(1.2);
 }
 
+/* Enhanced Tech Tags */
 .experience-tech {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e8f0fe;
+  border-top: 1px solid rgba(26, 115, 232, 0.1);
 }
 
 .tech-tag {
   background: linear-gradient(135deg, #e8f0fe, #d0e2ff);
   color: #1a73e8;
-  padding: 0.4rem 1rem;
-  border-radius: 15px;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
   border: 1px solid rgba(26, 115, 232, 0.2);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-tag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.tech-tag:hover::before {
+  left: 100%;
 }
 
 .tech-tag:hover {
@@ -224,14 +258,17 @@
   box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
 }
 
+/* Enhanced Achievement */
 .experience-achievement {
   background: linear-gradient(135deg, #fff9e6, #fff3cc);
-  border-left: 4px solid #ffc107;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-top: 1rem;
+  border-left: 4px solid #ffb300;
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin-top: 1.2rem;
   font-size: 0.95rem;
   color: #856404;
+  position: relative;
+  overflow: hidden;
 }
 
 .achievement-label {
@@ -244,7 +281,7 @@
 @media (max-width: 768px) {
   .experience {
     padding: 3rem 1.5rem;
-    margin: 0 auto 3rem;
+    margin: 2rem auto;
   }
   
   .experience-timeline::before {
@@ -256,7 +293,7 @@
   }
   
   .experience-marker {
-    left: 12px;
+    left: 14px;
   }
   
   .experience-card {
@@ -278,6 +315,11 @@
   .experience-company {
     font-size: 1.1rem;
   }
+  
+  .experience-details li {
+    font-size: 1rem;
+    padding-left: 1.8rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -285,13 +327,22 @@
     font-size: 2.5rem;
   }
   
-  .experience-details li {
-    font-size: 1rem;
-    padding-left: 1.5rem;
+  .experience-item {
+    padding-left: 50px;
+  }
+  
+  .experience-marker {
+    left: 12px;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .experience-card {
+    padding: 1.5rem 1.2rem;
   }
   
   .tech-tag {
     font-size: 0.8rem;
-    padding: 0.3rem 0.8rem;
+    padding: 0.4rem 1rem;
   }
 }
