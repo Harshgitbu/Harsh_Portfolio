@@ -7,7 +7,7 @@ import { FaChartLine, FaRobot, FaDatabase, FaLaptopCode, FaServer, FaGithub, FaE
 
 const projects = [
   {
-    title: 'Financial Analytics Web App',
+    title: 'Financial Stock Analysis Web App',
     period: 'Mar 2025 – May 2025',
     description: 'Streamlit-based web app performing sentiment analysis on social media and financial news to assess stock trends with real-time data processing and interactive visualizations.',
     category: 'analytics',
@@ -18,14 +18,14 @@ const projects = [
       'Social media sentiment correlation',
       'Predictive analytics dashboard'
     ],
-    githubLink: 'https://github.com/Harshgitbu/financial-analytics',
-    demoLink: '#',
+    githubLink: 'https://github.com/Harshgitbu/FinancialScorePredictor_UsingSentimentAnalysis',
+    demoLink: 'https://financialscorepredictorusingsentimentanalysis-jupccv2tasaebkph.streamlit.app/',
     icon: <FaChartLine />
   },
   {
     title: 'Predicting Respiratory Hospitalizations from Air Pollution',
     period: 'Mar 2025 – May 2025',
-    description: 'Machine learning model on Azure ML Studio predicting hospitalization risks using real-time and historical air quality data with 94% accuracy.',
+    description: 'Machine learning model on Azure ML Studio predicting hospitalization risks using real-time and historical air quality data with 55% accuracy.',
     category: 'ml',
     technologies: ['Azure ML', 'Python', 'Machine Learning', 'Time Series', 'Healthcare Analytics', 'Scikit-learn'],
     features: [
@@ -34,24 +34,24 @@ const projects = [
       'Healthcare risk prediction',
       'Azure cloud deployment'
     ],
-    githubLink: 'https://github.com/Harshgitbu/healthcare-prediction',
-    demoLink: '#',
+    githubLink: 'https://github.com/Harshgitbu/Predicting_RespiratoryHospitalizations_AirPollution',
+    demoLink: 'https://app.powerbi.com/view?r=eyJrIjoiMmZmZTRkNzMtNzAwMC00MTliLTkyMTUtZDk5MGM0NTY1ZWY2IiwidCI6ImQ1N2QzMmNjLWMxMjEtNDg4Zi1iMDdiLWRmZTcwNTY4MGM3MSIsImMiOjN9&embedImagePlaceholder=true&pageName=ReportSection',
     icon: <FaRobot />
   },
   {
-    title: 'Big Data Processing Pipeline for IoT Analytics',
-    period: 'Jan 2025 – Present',
-    description: 'Scalable data engineering pipeline processing terabytes of IoT sensor data using Apache Spark and cloud technologies for real-time analytics and monitoring.',
+    title: 'Big Data Processing Pipeline for Analytics',
+    period: 'Jan 2025 – Mar 2025',
+    description: 'Scalable data engineering pipeline processing lots of sensor data using Apache Spark and cloud technologies for real-time analytics and monitoring.',
     category: 'engineering',
-    technologies: ['Apache Spark', 'AWS', 'Python', 'Big Data', 'ETL', 'Docker', 'Kafka'],
+    technologies: ['Apache Spark', 'AWS', 'Python', 'Big Data', 'ETL', 'Hadoop', 'Kafka'],
     features: [
       'Distributed data processing for IoT sensor data',
       'Real-time streaming analytics pipeline',
       'Cloud-native architecture on AWS',
       'Automated ETL workflows and monitoring'
     ],
-    githubLink: 'https://github.com/Harshgitbu/big-data-pipeline',
-    demoLink: '#',
+    githubLink: 'https://github.com/Harshgitbu/Boston_AirPollution_Weather_Analysis',
+    demoLink: 'https://app.powerbi.com/view?r=eyJrIjoiMmQ1ZTQ0NzktZWYwOS00OGY0LWI0ODUtNTBmZTY5ZDkzODRhIiwidCI6ImQ1N2QzMmNjLWMxMjEtNDg4Zi1iMDdiLWRmZTcwNTY4MGM3MSIsImMiOjN9&embedImagePlaceholder=true',
     icon: <FaServer />
   },
   {
@@ -66,8 +66,8 @@ const projects = [
       'Historical data comparison',
       'Interactive dashboards'
     ],
-    githubLink: 'https://github.com/Harshgitbu/cricket-analytics',
-    demoLink: '#',
+    githubLink: 'https://github.com/Harshgitbu/Cricket_Insights_App',
+    //demoLink: '#',
     icon: <FaLaptopCode />
   },
   {
@@ -82,8 +82,8 @@ const projects = [
       'Interactive dashboards',
       'Policy impact assessment'
     ],
-    githubLink: 'https://github.com/Harshgitbu/boston-analysis',
-    demoLink: '#',
+    githubLink: 'https://github.com/BU-Spark/ds-boston-d7-indicators',
+    //demoLink: '#',
     icon: <FaDatabase />
   }
 ];

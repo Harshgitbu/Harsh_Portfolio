@@ -3,7 +3,7 @@ import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Contact.css';
 
 // Import icons
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheck } from 'react-icons/fa';
+import { FaEnvelope, /*FaPhone*/ FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheck } from 'react-icons/fa';
 
 const Contact = () => {
   const [ref, isVisible] = useFadeInOnScroll();
@@ -24,12 +24,12 @@ const Contact = () => {
       details: 'shahharsh0612@gmail.com',
       link: 'mailto:shahharsh0612@gmail.com'
     },
-    {
+    /*{
       icon: <FaPhone />,
       title: 'Phone',
       details: '(908) 636-1325',
       link: 'tel:+19086361325'
-    },
+    },*/
     {
       icon: <FaMapMarkerAlt />,
       title: 'Location',

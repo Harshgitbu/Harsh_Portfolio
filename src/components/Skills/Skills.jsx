@@ -174,25 +174,7 @@ const Skills = () => {
           </div>
         )}
 
-        {/* Skill Level Legend */}
-        <div className="skills-overview">
-          <div className="overview-item">
-            <span className="overview-number" style={{color: '#10b981'}}>85%+</span>
-            <span className="overview-label">Advanced</span>
-          </div>
-          <div className="overview-item">
-            <span className="overview-number" style={{color: '#f59e0b'}}>75-85%</span>
-            <span className="overview-label">Intermediate</span>
-          </div>
-          <div className="overview-item">
-            <span className="overview-number" style={{color: '#eab308'}}>60-75%</span>
-            <span className="overview-label">Beginner</span>
-          </div>
-          <div className="overview-item">
-            <span className="overview-number" style={{color: '#ef4444'}}>Below 60%</span>
-            <span className="overview-label">Novice</span>
-          </div>
-        </div>
+        
       </div>
     </section>
   );

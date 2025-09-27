@@ -23,13 +23,13 @@ const experiences = [
     location: 'Warren, MI',
     period: 'July 2022 – June 2024',
     details: [
-      'Engineered 15+ APIs and automated pipelines supporting 30k users with Grafana monitoring.',
-      'Built CI/CD pipelines in Azure improving deployment scalability by 85%.',
+      'Engineered 15+ APIs and automated data pipelines, securing data for 30k users with Grafana-based monitoring.',
+      'Built automated CI/CD pipelines in Azure improving deployment scalability by 85%.',
       'Applied cloud-native development and distributed processing for reliability.',
       'Implemented role-based access controls and security validations.',
       'Resolved daily software issues via Git workflows ensuring remote vehicle control.',
     ],
-    technologies: ['Azure', 'CI/CD', 'Python', 'API Development', 'Grafana', 'Git'],
+    technologies: ['Azure', 'CI/CD', 'Python', 'API Development', 'Grafana', 'Git', 'PowerBI'],
     achievement: 'Enhanced deployment scalability by 85% through Azure CI/CD pipelines'
   },
   {
