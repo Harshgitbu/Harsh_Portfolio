@@ -6,25 +6,25 @@ const About = () => {
   const [ref, isVisible] = useFadeInOnScroll();
 
   const stats = [
-    { number: "3+", label: "Years Experience" },
+    { number: "4+", label: "Years Experience" },
     { number: "10+", label: "Projects Completed" },
     { number: "12+", label: "Technologies" },
-    { number: "2", label: "Cloud Platforms" }
+    { number: "3", label: "Cloud Platforms" }
   ];
 
-  const skillsByCategory = {
+  /*const skillsByCategory = {
     "Programming": ["Python", "SQL", "R", "JavaScript"],
     "Machine Learning": ["TensorFlow", "PyTorch", "Scikit-learn", "Deep Learning"],
     "Data Engineering": ["Apache Spark", "Data Pipelines", "Data Modeling"],
     "Cloud & Tools": ["Azure ML", "AWS", "Tableau", "Git"]
-  };
+  };*/
 
   const education = [
     {
       degree: "MS in Data Science",
       school: "Boston University",
       period: "2024 - 2025",
-      gpa: "GPA: 3.64/4.0"
+      gpa: "GPA: 3.60/4.0"
     },
     {
       degree: "BS in Computer Science", 
@@ -44,16 +44,10 @@ const About = () => {
           <div className="about-left">
             <div className="about-text">
               <p>
-                I am Harsh Shah, a Master's candidate in Data Science at Boston University,
-                graduating December 2025. With over 3 years of experience in machine learning,
-                big data engineering, and analytics, I specialize in designing scalable end-to-end
-                solutions using Python, SQL, and cloud platforms like Azure and AWS.
+                I am Harsh Shah, a recent Master's graduate in Data Science from Boston University. With over 4 years of professional experience in machine learning, data engineering, and analytics, I specialize in designing scalable end-to-end solutions using Python, SQL, and cloud platforms like Azure and AWS.
               </p>
               <p>
-                My passion lies in transforming complex data into actionable insights and 
-                building intelligent systems that drive business value. I thrive in challenging 
-                environments where I can apply my expertise in data modeling, machine learning 
-                algorithms, and cloud infrastructure to solve real-world problems.
+                My experience includes building predictive models for enterprise-scale applications at General Motors, optimizing restaurant analytics at Petpooja, and developing data pipelines that process information for 30,000+ users. I'm passionate about transforming complex data into actionable insights and creating intelligent systems that drive measurable business impact.
               </p>
             </div>
             
@@ -85,23 +79,6 @@ const About = () => {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* Core Competencies - Categorized Layout */}
-        <div className="core-competencies">
-          <h3>Core Competencies</h3>
-          <div className="skills-categories">
-            {Object.entries(skillsByCategory).map(([category, skills]) => (
-              <div key={category} className="skill-category">
-                <h4>{category}</h4>
-                <div className="skills-grid-compact">
-                  {skills.map((skill, index) => (
-                    <div key={index} className="skill-tag-compact">{skill}</div>
-                  ))}
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

@@ -32,30 +32,30 @@ const Skills = () => {
     // Programming Languages
     { name: 'Python', level: 95, category: 'languages', icon: <FaPython />, tags: ['Pandas', 'NumPy', 'Scipy'] },
     { name: 'SQL', level: 90, category: 'languages', icon: <FaDatabase />, tags: ['PostgreSQL', 'MySQL', 'SQL Server'] },
-    { name: 'R', level: 75, category: 'languages', icon: <FaCode />, tags: ['Statistical Analysis', 'Data Visualization'] },
-    { name: 'JavaScript', level: 70, category: 'languages', icon: <FaCode />, tags: ['React', 'Node.js', 'D3.js'] },
+    { name: 'R', level: 70, category: 'languages', icon: <FaCode />, tags: ['Statistical Analysis', 'Data Visualization'] },
+    { name: 'JavaScript', level: 80, category: 'languages', icon: <FaCode />, tags: ['React', 'Node.js', 'D3.js'] },
     
     // Machine Learning
     { name: 'Machine Learning', level: 90, category: 'ml', icon: <FaRobot />, tags: ['Supervised/Unsupervised', 'Deep Learning'] },
-    { name: 'TensorFlow', level: 85, category: 'ml', icon: <SiTensorflow />, tags: ['Keras', 'Neural Networks'] },
-    { name: 'PyTorch', level: 80, category: 'ml', icon: <SiPytorch />, tags: ['Deep Learning', 'Research'] },
+    { name: 'CNNs, RNNs', level: 80, category: 'ml', icon: <SiTensorflow />, tags: ['Keras', 'Neural Networks'] },
+    { name: 'PyTorch', level: 70, category: 'ml', icon: <SiPytorch />, tags: ['Deep Learning', 'Research'] },
     { name: 'Scikit-learn', level: 95, category: 'ml', icon: <SiScikitlearn />, tags: ['ML Algorithms', 'Model Evaluation'] },
     
     // Data Engineering
     { name: 'Apache Spark', level: 85, category: 'engineering', icon: <SiApachespark />, tags: ['Big Data', 'Distributed Computing'] },
     { name: 'Data Pipelines', level: 90, category: 'engineering', icon: <FaServer />, tags: ['ETL', 'Data Warehousing'] },
-    { name: 'Apache Kafka', level: 75, category: 'engineering', icon: <SiApachekafka />, tags: ['Stream Processing', 'Real-time'] },
-    { name: 'Data Modeling', level: 88, category: 'engineering', icon: <FaDatabase />, tags: ['Database Design', 'Normalization'] },
+    { name: 'Apache Kafka', level: 85, category: 'engineering', icon: <SiApachekafka />, tags: ['Stream Processing', 'Real-time'] },
+    { name: 'Data Modeling', level: 90, category: 'engineering', icon: <FaDatabase />, tags: ['Database Design', 'Normalization'] },
     
     // Cloud & DevOps
-    { name: 'Azure', level: 85, category: 'cloud', icon: <FaMicrosoft />, tags: ['ML Studio', 'Data Factory'] },
+    { name: 'Azure', level: 90, category: 'cloud', icon: <FaMicrosoft />, tags: ['ML Studio', 'Data Factory'] },
     { name: 'AWS', level: 75, category: 'cloud', icon: <FaAws />, tags: ['EC2', 'S3', 'Lambda'] },
     { name: 'Docker', level: 70, category: 'cloud', icon: <SiDocker />, tags: ['Containerization', 'Microservices'] },
     { name: 'Kubernetes', level: 65, category: 'cloud', icon: <SiKubernetes />, tags: ['Orchestration', 'Scaling'] },
     
     // Tools & Visualization
-    { name: 'Tableau', level: 80, category: 'tools', icon: <SiTableau />, tags: ['Dashboards', 'Business Intelligence'] },
-    { name: 'Data Visualization', level: 85, category: 'tools', icon: <FaChartLine />, tags: ['Matplotlib', 'Seaborn', 'Plotly'] },
+    { name: 'Tableau, PowerBI', level: 90, category: 'tools', icon: <SiTableau />, tags: ['Dashboards', 'Business Intelligence'] },
+    { name: 'Data Visualization', level: 95, category: 'tools', icon: <FaChartLine />, tags: ['Matplotlib', 'Seaborn', 'Plotly'] },
     { name: 'Git', level: 90, category: 'tools', icon: <FaTools />, tags: ['Version Control', 'CI/CD'] }
   ];
 

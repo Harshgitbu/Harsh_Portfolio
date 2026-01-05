@@ -72,7 +72,7 @@ const Hero = () => {
           <div className="hero-text">
             <h1 className="hero-title">Harsh Shah</h1>
             <p className="hero-subtitle">
-              Master's Candidate in Data Science at Boston University
+              Data Science Master's Graduate from Boston University | 4+ Years Industry Experience
             </p>
             <div className="typing-text">
               {typedText}<span className="cursor">|</span>
