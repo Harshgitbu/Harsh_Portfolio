@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Projects.css';
 
-import { FaChartLine, FaRobot, FaDatabase, FaBrain, FaGithub, FaExternalLinkAlt, FaServer, FaMobile } from 'react-icons/fa';
+import { FaChartLine, FaRobot, FaBrain, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { SiFlask, SiWhatsapp } from 'react-icons/si';
 
 const projects = [

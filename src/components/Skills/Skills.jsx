@@ -4,15 +4,14 @@ import './Skills.css';
 
 // Import icons
 import { 
-  FaPython, FaDatabase, FaCloud, FaTools, FaCode, FaRobot, 
+  FaDatabase, FaCloud, FaTools, FaCode, FaRobot, 
   FaChartLine, FaServer, FaAws, FaMicrosoft, FaBrain, 
-  FaDocker, FaGitAlt, FaChartBar, FaMobile 
+  FaDocker, FaGitAlt, FaChartBar 
 } from 'react-icons/fa';
 import { 
-  SiApachespark, SiTensorflow, SiPytorch, SiScikitlearn, 
+  SiApachespark, SiTensorflow, SiScikitlearn, 
   SiTableau, SiDocker, SiKubernetes, SiApachekafka, 
-  SiFastapi, SiTerraform, SiJenkins, SiRedis, SiGrafana,
-  SiFlask, SiReact, SiPostgresql
+  SiFastapi, SiTerraform, SiRedis, SiGrafana
 } from 'react-icons/si';
 
 const Skills = () => {
