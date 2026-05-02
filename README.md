@@ -105,4 +105,4 @@ A modern, responsive portfolio website showcasing data science expertise, machin
 
 ## ⭐ If you find this portfolio helpful, please give it a star on GitHub!
 
-_Last updated: 01-05-2026_
+_Last updated: 05-02-2026_
