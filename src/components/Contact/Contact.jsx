@@ -21,8 +21,8 @@ const Contact = () => {
     {
       icon: <FaEnvelope />,
       title: 'Email',
-      details: 'harshtemp612@gmail.com',
-      link: 'mailto:harshtemp612@gmail.com'
+      details: 'shahharsh0612@gmail.com',
+      link: 'mailto:shahharsh0612@gmail.com'
     },
     {
       icon: <FaPhone />,
@@ -56,7 +56,7 @@ const Contact = () => {
     },
     {
       icon: <FaEnvelope />,
-      url: 'mailto:harshtemp612@gmail.com',
+      url: 'mailto:shahharsh0612@gmail.com',
       label: 'Email'
     }
   ];
