@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'; // Remove useRef import
+import React, { useEffect, useState } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import resumePdf from './resume.pdf';
-import profileImage from './Linkedin_pro_pic.jpg';
+import profileImage from './Linkedin_pro.jpg';
 import './Hero.css';
 
 import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaArrowDown } from 'react-icons/fa';
@@ -20,13 +20,12 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    // Move texts array inside useEffect to fix the dependency warning
     const texts = [
-      "Machine Learning Specialist",
-      "Data Engineering Expert", 
-      "Big Data Analytics",
-      "Cloud Solutions Architect",
-      "AI/ML Researcher"
+      "AI Engineer",
+      "MLOps Specialist",
+      "RAG Systems Architect",
+      "Data Scientist",
+      "Production AI Engineer"
     ];
 
     const currentText = texts[currentTextIndex];
@@ -46,7 +45,7 @@ const Hero = () => {
     }, isDeleting ? 50 : 100);
 
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, currentTextIndex]); // Remove 'texts' from dependencies
+  }, [charIndex, isDeleting, currentTextIndex]);
 
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -72,7 +71,7 @@ const Hero = () => {
           <div className="hero-text">
             <h1 className="hero-title">Harsh Shah</h1>
             <p className="hero-subtitle">
-              Data Science Master's Graduate from Boston University | 4+ Years Industry Experience
+              AI Engineer | MLOps Specialist | Data Scientist
             </p>
             <div className="typing-text">
               {typedText}<span className="cursor">|</span>
@@ -92,7 +91,7 @@ const Hero = () => {
               <a href="https://www.linkedin.com/in/harsh612/" className="social-link" target="_blank" rel="noopener noreferrer">
                 <FaLinkedin size={20} />
               </a>
-              <a href="mailto:shahharsh0612@gmail.com" className="social-link">
+              <a href="mailto:harshtemp612@gmail.com" className="social-link">
                 <FaEnvelope size={20} />
               </a>
             </div>

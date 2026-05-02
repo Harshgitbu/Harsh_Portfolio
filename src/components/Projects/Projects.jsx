@@ -2,89 +2,89 @@ import React, { useState } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Projects.css';
 
-// Import icons
-import { FaChartLine, FaRobot, FaDatabase, FaLaptopCode, FaServer, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaChartLine, FaRobot, FaDatabase, FaBrain, FaGithub, FaExternalLinkAlt, FaServer, FaMobile } from 'react-icons/fa';
+import { SiFlask, SiWhatsapp } from 'react-icons/si';
 
 const projects = [
   {
-    title: 'Financial Stock Analysis Web App',
-    period: 'Mar 2025 – May 2025',
-    description: 'Streamlit-based web app performing sentiment analysis on social media and financial news to assess stock trends with real-time data processing and interactive visualizations.',
-    category: 'analytics',
-    technologies: ['Python', 'Streamlit', 'NLP', 'Sentiment Analysis', 'Plotly', 'Yahoo Finance API'],
+    title: 'Enterprise AI Platform: Risk Intelligence with Scalable RAG',
+    period: 'Dec 2025 – Jan 2026',
+    description: 'Architected production RAG system with FAISS vector database for enterprise document intelligence. Optimized deployment on AWS EC2 achieving 83% memory efficiency and $0/month operational cost through containerization and caching.',
+    category: 'ml',
+    technologies: ['RAG', 'FAISS', 'AWS', 'Docker', 'FastAPI', 'Redis', 'LLMs'],
     features: [
-      'Real-time sentiment analysis of financial news',
-      'Interactive stock trend visualizations',
-      'Social media sentiment correlation',
-      'Predictive analytics dashboard'
+      'Scalable RAG system with intelligent document retrieval',
+      'Multi-LLM service with intelligent routing (<1s response time)',
+      'Production MLOps infrastructure with CI/CD',
+      'Domain adaptation and real-time analytics'
     ],
-    githubLink: 'https://github.com/Harshgitbu/FinancialScorePredictor_UsingSentimentAnalysis',
-    demoLink: 'https://financialscorepredictorusingsentimentanalysis-jupccv2tasaebkph.streamlit.app/',
+    githubLink: '#',
+    demoLink: '#',
+    icon: <FaBrain />
+  },
+  {
+    title: 'WhatsApp AI Sales Automation Agent',
+    period: 'Mar 2025 – May 2025',
+    description: 'Engineered AI sales automation system using Claude API with constrained generation for reliable order processing. Built hybrid LLM + state machine orchestration with React admin dashboard.',
+    category: 'ml',
+    technologies: ['Python', 'Flask', 'Claude API', 'SQLAlchemy', 'Meta Cloud API', 'React', 'PostgreSQL'],
+    features: [
+      'Task-oriented dialogue system with structured prompt design',
+      'Data flywheel architecture for personalized recommendations',
+      'Full-stack deployment with webhook server and admin dashboard',
+      'Background scheduler for re-engagement and analytics'
+    ],
+    githubLink: '#',
+    demoLink: '#',
+    icon: <SiWhatsapp style={{ fontSize: '2rem' }} />
+  },
+  {
+    title: 'Multi-Factor Financial Analytics Engine',
+    period: 'Mar 2025 – May 2025',
+    description: 'Built real-time sentiment analysis pipeline processing Twitter and news data. Engineered scoring system combining sentiment, fundamentals, and technical indicators with customizable weights.',
+    category: 'analytics',
+    technologies: ['Python', 'NLP', 'Streamlit', 'Yahoo Finance API', 'Plotly', 'Pandas'],
+    features: [
+      'Real-time sentiment analysis pipeline',
+      'Multi-factor scoring with customizable weights',
+      'Interactive stock comparison dashboard',
+      'Buy/Hold/Sell signal generation'
+    ],
+    githubLink: '#',
+    demoLink: '#',
     icon: <FaChartLine />
   },
   {
-    title: 'Predicting Respiratory Hospitalizations from Air Pollution',
+    title: 'Environmental Health Risk Prediction Platform',
     period: 'Mar 2025 – May 2025',
-    description: 'Machine learning model on Azure ML Studio predicting hospitalization risks using real-time and historical air quality data with 55% accuracy.',
+    description: 'Built ML models predicting hospitalization risks with 54.8% accuracy using real-time air quality data. Engineered cloud data pipeline on Azure with batch and streaming capabilities.',
     category: 'ml',
-    technologies: ['Azure ML', 'Python', 'Machine Learning', 'Time Series', 'Healthcare Analytics', 'Scikit-learn'],
+    technologies: ['Azure ML', 'Python', 'Scikit-learn', 'Power BI', 'Data Factory', 'Event Hubs'],
     features: [
       'Real-time air quality data integration',
-      'Time series forecasting model',
-      'Healthcare risk prediction',
-      'Azure cloud deployment'
+      'Time series forecasting for risk prediction',
+      'Interactive Power BI dashboard',
+      'Automated alert system for health interventions'
     ],
-    githubLink: 'https://github.com/Harshgitbu/Predicting_RespiratoryHospitalizations_AirPollution',
-    demoLink: 'https://app.powerbi.com/view?r=eyJrIjoiMmZmZTRkNzMtNzAwMC00MTliLTkyMTUtZDk5MGM0NTY1ZWY2IiwidCI6ImQ1N2QzMmNjLWMxMjEtNDg4Zi1iMDdiLWRmZTcwNTY4MGM3MSIsImMiOjN9&embedImagePlaceholder=true&pageName=ReportSection',
+    githubLink: '#',
+    demoLink: '#',
     icon: <FaRobot />
   },
   {
-    title: 'Big Data Processing Pipeline for Analytics',
-    period: 'Jan 2025 – Mar 2025',
-    description: 'Scalable data engineering pipeline processing lots of sensor data using Apache Spark and cloud technologies for real-time analytics and monitoring.',
-    category: 'engineering',
-    technologies: ['Apache Spark', 'AWS', 'Python', 'Big Data', 'ETL', 'Hadoop', 'Kafka'],
-    features: [
-      'Distributed data processing for IoT sensor data',
-      'Real-time streaming analytics pipeline',
-      'Cloud-native architecture on AWS',
-      'Automated ETL workflows and monitoring'
-    ],
-    githubLink: 'https://github.com/Harshgitbu/Boston_AirPollution_Weather_Analysis',
-    demoLink: 'https://app.powerbi.com/view?r=eyJrIjoiMmQ1ZTQ0NzktZWYwOS00OGY0LWI0ODUtNTBmZTY5ZDkzODRhIiwidCI6ImQ1N2QzMmNjLWMxMjEtNDg4Zi1iMDdiLWRmZTcwNTY4MGM3MSIsImMiOjN9&embedImagePlaceholder=true',
-    icon: <FaServer />
-  },
-  {
-    title: 'Cricket Analytics Web Platform',
+    title: 'Sports Performance Analysis Web App',
     period: 'Feb 2025 – Apr 2025',
-    description: 'End-to-end DS & ML integration delivering ESPN-style cricket insights using Flask and ML-powered comparisons with player performance analytics.',
+    description: 'Built end-to-end sports analytics platform with Flask application for player performance analysis and team strategy optimization using ensemble models and clustering algorithms.',
     category: 'web',
-    technologies: ['Flask', 'Python', 'Machine Learning', 'Data Visualization', 'Sports Analytics', 'JavaScript'],
+    technologies: ['Flask', 'Python', 'Scikit-learn', 'Data Visualization', 'JavaScript', 'Pandas'],
     features: [
-      'Player performance prediction',
-      'Real-time match analytics',
-      'Historical data comparison',
-      'Interactive dashboards'
+      'Player performance prediction models',
+      'Team strategy optimization',
+      'Clustering for player segmentation',
+      'Interactive performance dashboards'
     ],
-    githubLink: 'https://github.com/Harshgitbu/Cricket_Insights_App',
-    //demoLink: '#',
-    icon: <FaLaptopCode />
-  },
-  {
-    title: "Exploratory Data Analysis of Boston's District 7",
-    period: 'Oct 2024 – Dec 2024',
-    description: 'Geospatial modeling and interactive Python dashboards for socioeconomic trends and displacement analysis with policy recommendations.',
-    category: 'analytics',
-    technologies: ['Python', 'Geospatial Analysis', 'Tableau', 'Statistical Modeling', 'Data Visualization'],
-    features: [
-      'Geospatial data visualization',
-      'Socioeconomic trend analysis',
-      'Interactive dashboards',
-      'Policy impact assessment'
-    ],
-    githubLink: 'https://github.com/BU-Spark/ds-boston-d7-indicators',
-    //demoLink: '#',
-    icon: <FaDatabase />
+    githubLink: '#',
+    demoLink: '#',
+    icon: <SiFlask style={{ fontSize: '2rem' }} />
   }
 ];
 
@@ -94,10 +94,9 @@ const Projects = () => {
 
   const filters = [
     { key: 'all', label: 'All Projects' },
-    { key: 'ml', label: 'Machine Learning' },
+    { key: 'ml', label: 'AI/ML' },
     { key: 'analytics', label: 'Analytics' },
-    { key: 'engineering', label: 'Data Engineering' },
-    { key: 'web', label: 'Web Applications' }
+    { key: 'web', label: 'Web Apps' }
   ];
 
   const filteredProjects = activeFilter === 'all' 

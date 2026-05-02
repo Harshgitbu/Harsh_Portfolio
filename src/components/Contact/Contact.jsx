@@ -3,7 +3,7 @@ import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Contact.css';
 
 // Import icons
-import { FaEnvelope, /*FaPhone*/ FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheck } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheck, FaGlobe } from 'react-icons/fa';
 
 const Contact = () => {
   const [ref, isVisible] = useFadeInOnScroll();
@@ -21,26 +21,20 @@ const Contact = () => {
     {
       icon: <FaEnvelope />,
       title: 'Email',
-      details: 'shahharsh0612@gmail.com',
-      link: 'mailto:shahharsh0612@gmail.com'
+      details: 'harshtemp612@gmail.com',
+      link: 'mailto:harshtemp612@gmail.com'
     },
-    /*{
+    {
       icon: <FaPhone />,
       title: 'Phone',
-      details: '(908) 636-1325',
-      link: 'tel:+19086361325'
-    },*/
+      details: '+91 9023974413',
+      link: 'tel:+919023974413'
+    },
     {
       icon: <FaMapMarkerAlt />,
       title: 'Location',
-      details: 'Boston, MA',
-      link: 'https://maps.google.com/?q=Boston,MA'
-    },
-    {
-      icon: <FaLinkedin />,
-      title: 'LinkedIn',
-      details: 'linkedin.com/in/harsh612',
-      link: 'https://www.linkedin.com/in/harsh612/'
+      details: 'Ahmedabad, Gujarat, India',
+      link: 'https://maps.google.com/?q=Ahmedabad,Gujarat,India'
     }
   ];
 
@@ -56,8 +50,13 @@ const Contact = () => {
       label: 'GitHub'
     },
     {
+      icon: <FaGlobe />,
+      url: 'https://harshshah-portfolio.netlify.app',
+      label: 'Portfolio'
+    },
+    {
       icon: <FaEnvelope />,
-      url: 'mailto:shahharsh0612@gmail.com',
+      url: 'mailto:harshtemp612@gmail.com',
       label: 'Email'
     }
   ];
@@ -95,7 +94,6 @@ const Contact = () => {
       [name]: value
     }));
 
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -115,11 +113,11 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Simulate form submission (replace with actual API call)
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Replace this with your actual email service endpoint
+      // For now, it simulates submission
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Here you would typically send the data to your backend
       console.log('Form submitted:', formData);
       
       setIsSubmitted(true);
@@ -137,7 +135,7 @@ const Contact = () => {
     return (
       <section id="contact" className="section">
         <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-          <h2>Contact Me</h2>
+          <h2>Get In Touch</h2>
           <div className="success-message">
             <FaCheck style={{ marginRight: '0.5rem' }} />
             Thank you for your message! I'll get back to you within 24 hours.
@@ -175,7 +173,7 @@ const Contact = () => {
         <div className="contact-content">
           <div className="contact-info">
             <p className="contact-description">
-              I'm currently available for full-time data science opportunities starting January 2026. 
+              I'm currently available for AI Engineer and Data Scientist opportunities. 
               Whether you have a project in mind or just want to connect, feel free to reach out!
             </p>
             
@@ -203,7 +201,7 @@ const Contact = () => {
 
             <div className="availability">
               <div className="availability-dot"></div>
-              <span className="availability-text">Available for opportunities starting January 2026</span>
+              <span className="availability-text">Available for opportunities | 4+ years experience</span>
             </div>
           </div>
 
