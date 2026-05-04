@@ -38,6 +38,13 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
+  const getSkillLevelClass = (level) => {
+    if (level >= 85) return 'advanced';
+    if (level >= 75) return 'intermediate';
+    if (level >= 60) return 'beginner';
+    return 'novice';
+  };
+
   const skillCategories = [
     { key: 'all', label: 'All Skills', icon: <FaCode /> },
     { key: 'ml', label: 'AI & ML', icon: <FaBrain /> },
