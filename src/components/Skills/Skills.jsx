@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Skills.css';
 
@@ -18,13 +18,25 @@ const Skills = () => {
   const [ref, isVisible] = useFadeInOnScroll();
   const [activeCategory, setActiveCategory] = useState('all');
   const [animated, setAnimated] = useState(false);
+  const sectionRef = useRef(null);
 
-  const getSkillLevelClass = (level) => {
-    if (level >= 85) return 'advanced';
-    if (level >= 75) return 'intermediate';
-    if (level >= 60) return 'beginner';
-    return 'novice';
-  };
+  // Scroll reveal animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   const skillCategories = [
     { key: 'all', label: 'All Skills', icon: <FaCode /> },
@@ -96,111 +108,113 @@ const Skills = () => {
 
   return (
     <section id="skills" className="section">
-      <div ref={ref} className={`skills fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-        <h2>Technical Skills</h2>
-        
-        <div className="skills-categories">
-          {skillCategories.map(category => (
-            <button
-              key={category.key}
-              className={`category-btn ${activeCategory === category.key ? 'active' : ''}`}
-              onClick={() => setActiveCategory(category.key)}
-            >
-              {category.icon}
-              {category.label}
-            </button>
-          ))}
-        </div>
+      <div ref={sectionRef} className="reveal">  {/* Added sectionRef wrapper */}
+        <div ref={ref} className={`skills fade-in-section ${isVisible ? 'is-visible' : ''}`}>
+          <h2>Technical Skills</h2>
+          
+          <div className="skills-categories">
+            {skillCategories.map(category => (
+              <button
+                key={category.key}
+                className={`category-btn ${activeCategory === category.key ? 'active' : ''}`}
+                onClick={() => setActiveCategory(category.key)}
+              >
+                {category.icon}
+                {category.label}
+              </button>
+            ))}
+          </div>
 
-        {activeCategory === 'all' ? (
-          <div className="skills-grid">
-            {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
-              <div key={category} className={`skill-category ${category}`}>
-                <div className="category-header">
-                  <div className="category-icon">
-                    {skillCategories.find(cat => cat.key === category)?.icon}
-                  </div>
-                  <h3 className="category-title">
-                    {skillCategories.find(cat => cat.key === category)?.label}
-                  </h3>
-                </div>
-                
-                <div className="skills-list">
-                  {categorySkills.map((skill, index) => (
-                    <div key={index} className={`skill-item ${skill.levelClass}`}>
-                      <div className="skill-header">
-                        <span className="skill-name">
-                          {skill.icon}
-                          {skill.name}
-                        </span>
-                        <span className="skill-level">{skill.level}%</span>
-                      </div>
-                      <div className="skill-bar-container">
-                        <div 
-                          className="skill-bar" 
-                          style={{ 
-                            width: animated ? `${skill.level}%` : '0%',
-                            transitionDelay: `${index * 0.1}s`
-                          }}
-                        ></div>
-                      </div>
-                      <div className="skill-tags">
-                        {skill.tags.map((tag, tagIndex) => (
-                          <span key={tagIndex} className="skill-tag">{tag}</span>
-                        ))}
-                      </div>
+          {activeCategory === 'all' ? (
+            <div className="skills-grid">
+              {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
+                <div key={category} className={`skill-category ${category}`}>
+                  <div className="category-header">
+                    <div className="category-icon">
+                      {skillCategories.find(cat => cat.key === category)?.icon}
                     </div>
-                  ))}
+                    <h3 className="category-title">
+                      {skillCategories.find(cat => cat.key === category)?.label}
+                    </h3>
+                  </div>
+                  
+                  <div className="skills-list">
+                    {categorySkills.map((skill, index) => (
+                      <div key={index} className={`skill-item ${skill.levelClass}`}>
+                        <div className="skill-header">
+                          <span className="skill-name">
+                            {skill.icon}
+                            {skill.name}
+                          </span>
+                          <span className="skill-level">{skill.level}%</span>
+                        </div>
+                        <div className="skill-bar-container">
+                          <div 
+                            className="skill-bar" 
+                            style={{ 
+                              width: animated ? `${skill.level}%` : '0%',
+                              transitionDelay: `${index * 0.1}s`
+                            }}
+                          ></div>
+                        </div>
+                        <div className="skill-tags">
+                          {skill.tags.map((tag, tagIndex) => (
+                            <span key={tagIndex} className="skill-tag">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="skills-list-single">
-            {filteredSkills.map((skill, index) => (
-              <div key={index} className={`skill-item ${skill.levelClass}`}>
-                <div className="skill-header">
-                  <span className="skill-name">
-                    {skill.icon}
-                    {skill.name}
-                  </span>
-                  <span className="skill-level">{skill.level}%</span>
+              ))}
+            </div>
+          ) : (
+            <div className="skills-list-single">
+              {filteredSkills.map((skill, index) => (
+                <div key={index} className={`skill-item ${skill.levelClass}`}>
+                  <div className="skill-header">
+                    <span className="skill-name">
+                      {skill.icon}
+                      {skill.name}
+                    </span>
+                    <span className="skill-level">{skill.level}%</span>
+                  </div>
+                  <div className="skill-bar-container">
+                    <div 
+                      className="skill-bar" 
+                      style={{ 
+                        width: animated ? `${skill.level}%` : '0%',
+                        transitionDelay: `${index * 0.1}s`
+                      }}
+                    ></div>
+                  </div>
+                  <div className="skill-tags">
+                    {skill.tags.map((tag, tagIndex) => (
+                      <span key={tagIndex} className="skill-tag">{tag}</span>
+                    ))}
+                  </div>
                 </div>
-                <div className="skill-bar-container">
-                  <div 
-                    className="skill-bar" 
-                    style={{ 
-                      width: animated ? `${skill.level}%` : '0%',
-                      transitionDelay: `${index * 0.1}s`
-                    }}
-                  ></div>
-                </div>
-                <div className="skill-tags">
-                  {skill.tags.map((tag, tagIndex) => (
-                    <span key={tagIndex} className="skill-tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
 
-        <div className="skills-overview">
-          <div className="overview-item">
-            <span className="overview-number" style={{color: '#10b981'}}>85%+</span>
-            <span className="overview-label">Advanced</span>
-          </div>
-          <div className="overview-item">
-            <span className="overview-number" style={{color: '#f59e0b'}}>75-85%</span>
-            <span className="overview-label">Intermediate</span>
-          </div>
-          <div className="overview-item">
-            <span className="overview-number" style={{color: '#eab308'}}>60-75%</span>
-            <span className="overview-label">Beginner</span>
-          </div>
-          <div className="overview-item">
-            <span className="overview-number" style={{color: '#ef4444'}}>Below 60%</span>
-            <span className="overview-label">Novice</span>
+          <div className="skills-overview">
+            <div className="overview-item">
+              <span className="overview-number" style={{color: '#10b981'}}>85%+</span>
+              <span className="overview-label">Advanced</span>
+            </div>
+            <div className="overview-item">
+              <span className="overview-number" style={{color: '#f59e0b'}}>75-85%</span>
+              <span className="overview-label">Intermediate</span>
+            </div>
+            <div className="overview-item">
+              <span className="overview-number" style={{color: '#eab308'}}>60-75%</span>
+              <span className="overview-label">Beginner</span>
+            </div>
+            <div className="overview-item">
+              <span className="overview-number" style={{color: '#ef4444'}}>Below 60%</span>
+              <span className="overview-label">Novice</span>
+            </div>
           </div>
         </div>
       </div>

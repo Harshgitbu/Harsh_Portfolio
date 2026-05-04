@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react'; // Removed useState since not needed
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Experience.css';
 
@@ -32,7 +32,7 @@ const experiences = [
       'Deployed full-stack system with Flask webhook server, database, React admin dashboard, and background scheduler.'
     ],
     technologies: ['Python', 'Flask', 'Claude API', 'SQLAlchemy', 'Meta Cloud API', 'React', 'PostgreSQL'],
-    achievement: 'Delivered production-ready AI sales automation system with 0$ operational cost'
+    achievement: 'Delivered production-ready AI sales automation system with $0 operational cost'
   },
   {
     role: 'Data Science Intern',
@@ -94,45 +94,66 @@ const experiences = [
 
 const Experience = () => {
   const [ref, isVisible] = useFadeInOnScroll();
+  const sectionRef = useRef(null);
+
+  // Scroll reveal animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="experience" className="section">
-      <div ref={ref} className={`experience fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-        <h2>Professional Experience</h2>
-        <div className="experience-timeline">
-          {experiences.map(({ role, company, location, period, details, technologies, achievement }, index) => (
-            <div key={index} className="experience-item">
-              <div className="experience-marker"></div>
-              <div className="experience-card">
-                <div className="experience-header">
-                  <div className="experience-title">
-                    <h3 className="experience-role">{role}</h3>
-                    <div className="experience-company">{company}</div>
-                    <div className="experience-location">{location}</div>
+      <div ref={sectionRef} className="reveal">  {/* Added sectionRef wrapper */}
+        <div ref={ref} className={`experience fade-in-section ${isVisible ? 'is-visible' : ''}`}>
+          <h2>Professional Experience</h2>
+          <div className="experience-timeline">
+            {experiences.map(({ role, company, location, period, details, technologies, achievement }, index) => (
+              <div key={index} className="experience-item">
+                <div className="experience-marker"></div>
+                <div className="experience-card">
+                  <div className="experience-header">
+                    <div className="experience-title">
+                      <h3 className="experience-role">{role}</h3>
+                      <div className="experience-company">{company}</div>
+                      <div className="experience-location">{location}</div>
+                    </div>
+                    <div className="experience-period">{period}</div>
                   </div>
-                  <div className="experience-period">{period}</div>
-                </div>
-                
-                <ul className="experience-details">
-                  {details.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
-                
-                {achievement && (
-                  <div className="experience-achievement">
-                    <span className="achievement-label">Key Achievement:</span> {achievement}
+                  
+                  <ul className="experience-details">
+                    {details.map((point, i) => (
+                      <li key={i}>{point}</li>
+                    ))}
+                  </ul>
+                  
+                  {achievement && (
+                    <div className="experience-achievement">
+                      <span className="achievement-label">Key Achievement:</span> {achievement}
+                    </div>
+                  )}
+                  
+                  <div className="experience-tech">
+                    {technologies.map((tech, i) => (
+                      <span key={i} className="tech-tag">{tech}</span>
+                    ))}
                   </div>
-                )}
-                
-                <div className="experience-tech">
-                  {technologies.map((tech, i) => (
-                    <span key={i} className="tech-tag">{tech}</span>
-                  ))}
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

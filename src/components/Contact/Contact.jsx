@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Contact.css';
 
@@ -16,13 +16,32 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Scroll reveal animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   const contactMethods = [
     {
       icon: <FaEnvelope />,
       title: 'Email',
-      details: 'shahharsh0612@gmail.com',
-      link: 'mailto:shahharsh0612@gmail.com'
+      details: 'harshtemp612@gmail.com',
+      link: 'mailto:harshtemp612@gmail.com'
     },
     {
       icon: <FaPhone />,
@@ -56,7 +75,7 @@ const Contact = () => {
     },
     {
       icon: <FaEnvelope />,
-      url: 'mailto:shahharsh0612@gmail.com',
+      url: 'mailto:harshtemp612@gmail.com',
       label: 'Email'
     }
   ];
@@ -114,8 +133,6 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Replace this with your actual email service endpoint
-      // For now, it simulates submission
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       console.log('Form submitted:', formData);
@@ -134,17 +151,52 @@ const Contact = () => {
   if (isSubmitted) {
     return (
       <section id="contact" className="section">
+        <div ref={sectionRef} className="reveal"> {/* Added sectionRef and reveal */}
+          <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
+            <h2>Get In Touch</h2>
+            <div className="success-message">
+              <FaCheck style={{ marginRight: '0.5rem' }} />
+              Thank you for your message! I'll get back to you within 24 hours.
+            </div>
+            <div className="contact-content">
+              <div className="contact-info">
+                <p className="contact-description">
+                  In the meantime, feel free to connect with me through any of these channels:
+                </p>
+                <div className="contact-methods">
+                  {contactMethods.map((method, index) => (
+                    <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
+                      <div className="contact-icon">
+                        {method.icon}
+                      </div>
+                      <div className="contact-details">
+                        <h3>{method.title}</h3>
+                        <p>{method.details}</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="contact" className="section">
+      <div ref={sectionRef} className="reveal"> {/* Added sectionRef and reveal */}
         <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
           <h2>Get In Touch</h2>
-          <div className="success-message">
-            <FaCheck style={{ marginRight: '0.5rem' }} />
-            Thank you for your message! I'll get back to you within 24 hours.
-          </div>
+          
           <div className="contact-content">
             <div className="contact-info">
               <p className="contact-description">
-                In the meantime, feel free to connect with me through any of these channels:
+                I'm currently available for AI Engineer and Data Scientist opportunities. 
+                Whether you have a project in mind or just want to connect, feel free to reach out!
               </p>
+              
               <div className="contact-methods">
                 {contactMethods.map((method, index) => (
                   <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
@@ -158,126 +210,95 @@ const Contact = () => {
                   </a>
                 ))}
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
-  return (
-    <section id="contact" className="section">
-      <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-        <h2>Get In Touch</h2>
-        
-        <div className="contact-content">
-          <div className="contact-info">
-            <p className="contact-description">
-              I'm currently available for AI Engineer and Data Scientist opportunities. 
-              Whether you have a project in mind or just want to connect, feel free to reach out!
-            </p>
-            
-            <div className="contact-methods">
-              {contactMethods.map((method, index) => (
-                <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
-                  <div className="contact-icon">
-                    {method.icon}
-                  </div>
-                  <div className="contact-details">
-                    <h3>{method.title}</h3>
-                    <p>{method.details}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            <div className="social-links-contact">
-              {socialLinks.map((social, index) => (
-                <a key={index} href={social.url} className="social-link-contact" target="_blank" rel="noopener noreferrer" aria-label={social.label}>
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-
-            <div className="availability">
-              <div className="availability-dot"></div>
-              <span className="availability-text">Available for opportunities | 4+ years experience</span>
-            </div>
-          </div>
-
-          <div className="contact-form-container">
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name" className="form-label">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className={`form-input ${errors.name ? 'error' : ''}`}
-                  placeholder="Your full name"
-                />
-                {errors.name && <span className="error-message">{errors.name}</span>}
+              <div className="social-links-contact">
+                {socialLinks.map((social, index) => (
+                  <a key={index} href={social.url} className="social-link-contact" target="_blank" rel="noopener noreferrer" aria-label={social.label}>
+                    {social.icon}
+                  </a>
+                ))}
               </div>
 
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={`form-input ${errors.email ? 'error' : ''}`}
-                  placeholder="your.email@example.com"
-                />
-                {errors.email && <span className="error-message">{errors.email}</span>}
+              <div className="availability">
+                <div className="availability-dot"></div>
+                <span className="availability-text">Available for opportunities | 4+ years experience</span>
               </div>
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="subject" className="form-label">Subject</label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  className={`form-input ${errors.subject ? 'error' : ''}`}
-                  placeholder="What's this about?"
-                />
-                {errors.subject && <span className="error-message">{errors.subject}</span>}
-              </div>
+            <div className="contact-form-container">
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="name" className="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className={`form-input ${errors.name ? 'error' : ''}`}
+                    placeholder="Your full name"
+                  />
+                  {errors.name && <span className="error-message">{errors.name}</span>}
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="message" className="form-label">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  className={`form-textarea ${errors.message ? 'error' : ''}`}
-                  placeholder="Tell me about your project or opportunity..."
-                  rows="5"
-                />
-                {errors.message && <span className="error-message">{errors.message}</span>}
-              </div>
+                <div className="form-group">
+                  <label htmlFor="email" className="form-label">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`form-input ${errors.email ? 'error' : ''}`}
+                    placeholder="your.email@example.com"
+                  />
+                  {errors.email && <span className="error-message">{errors.email}</span>}
+                </div>
 
-              <button 
-                type="submit" 
-                className={`submit-btn ${isSubmitting ? 'loading' : ''}`}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Sending...' : (
-                  <>
-                    <FaPaperPlane />
-                    Send Message
-                  </>
-                )}
-              </button>
+                <div className="form-group">
+                  <label htmlFor="subject" className="form-label">Subject</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    className={`form-input ${errors.subject ? 'error' : ''}`}
+                    placeholder="What's this about?"
+                  />
+                  {errors.subject && <span className="error-message">{errors.subject}</span>}
+                </div>
 
-              {errors.submit && <span className="error-message">{errors.submit}</span>}
-            </form>
+                <div className="form-group">
+                  <label htmlFor="message" className="form-label">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={`form-textarea ${errors.message ? 'error' : ''}`}
+                    placeholder="Tell me about your project or opportunity..."
+                    rows="5"
+                  />
+                  {errors.message && <span className="error-message">{errors.message}</span>}
+                </div>
+
+                <button 
+                  type="submit" 
+                  className={`submit-btn ${isSubmitting ? 'loading' : ''}`}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : (
+                    <>
+                      <FaPaperPlane />
+                      Send Message
+                    </>
+                  )}
+                </button>
+
+                {errors.submit && <span className="error-message">{errors.submit}</span>}
+              </form>
+            </div>
           </div>
         </div>
       </div>

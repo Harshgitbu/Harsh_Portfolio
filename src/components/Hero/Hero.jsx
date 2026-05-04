@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react'; // Combined imports
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import resumePdf from './resume.pdf';
 import profileImage from './Linkedin_pro.jpg';
@@ -13,7 +13,27 @@ const Hero = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [ref, isVisible] = useFadeInOnScroll();
+  const sectionRef = useRef(null);
 
+  // Scroll reveal animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+
+  // Typing animation
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(timer);
@@ -66,7 +86,7 @@ const Hero = () => {
       className={`hero ${visible ? 'visible' : ''} ${isVisible ? 'scroll-visible' : ''}`}
       ref={ref}
     >
-      <div className="hero-container">
+      <div ref={sectionRef} className="hero-container reveal"> {/* Added sectionRef and reveal class */}
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-title">Harsh Shah</h1>

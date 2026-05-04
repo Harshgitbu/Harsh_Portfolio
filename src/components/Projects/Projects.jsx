@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Projects.css';
 
@@ -91,6 +91,25 @@ const projects = [
 const Projects = () => {
   const [ref, isVisible] = useFadeInOnScroll();
   const [activeFilter, setActiveFilter] = useState('all');
+  const sectionRef = useRef(null);
+
+  // Scroll reveal animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   const filters = [
     { key: 'all', label: 'All Projects' },
@@ -105,61 +124,63 @@ const Projects = () => {
 
   return (
     <section id="projects" className="section">
-      <div ref={ref} className={`projects fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-        <h2>Featured Projects</h2>
-        
-        <div className="projects-filters">
-          {filters.map(filter => (
-            <button
-              key={filter.key}
-              className={`filter-btn ${activeFilter === filter.key ? 'active' : ''}`}
-              onClick={() => setActiveFilter(filter.key)}
-            >
-              {filter.label}
-            </button>
-          ))}
-        </div>
+      <div ref={sectionRef} className="reveal">  {/* Added sectionRef wrapper */}
+        <div ref={ref} className={`projects fade-in-section ${isVisible ? 'is-visible' : ''}`}>
+          <h2>Featured Projects</h2>
+          
+          <div className="projects-filters">
+            {filters.map(filter => (
+              <button
+                key={filter.key}
+                className={`filter-btn ${activeFilter === filter.key ? 'active' : ''}`}
+                onClick={() => setActiveFilter(filter.key)}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
 
-        <div className="projects-grid">
-          {filteredProjects.map((project, index) => (
-            <div key={index} className={`project-card ${project.category}`}>
-              <div className="project-image">
-                <div className="project-icon">
-                  {project.icon}
+          <div className="projects-grid">
+            {filteredProjects.map((project, index) => (
+              <div key={index} className={`project-card ${project.category}`}>
+                <div className="project-image">
+                  <div className="project-icon">
+                    {project.icon}
+                  </div>
+                </div>
+                
+                <div className="project-content">
+                  <div className="project-header">
+                    <h3 className="project-title">{project.title}</h3>
+                    <span className="project-period">{project.period}</span>
+                  </div>
+                  
+                  <p className="project-description">{project.description}</p>
+                  
+                  <ul className="project-features">
+                    {project.features.map((feature, i) => (
+                      <li key={i}>{feature}</li>
+                    ))}
+                  </ul>
+                  
+                  <div className="project-tech">
+                    {project.technologies.map((tech, i) => (
+                      <span key={i} className="tech-pill">{tech}</span>
+                    ))}
+                  </div>
+                  
+                  <div className="project-links">
+                    <a href={project.githubLink} className="project-link github" target="_blank" rel="noopener noreferrer">
+                      <FaGithub /> Code
+                    </a>
+                    <a href={project.demoLink} className="project-link demo" target="_blank" rel="noopener noreferrer">
+                      <FaExternalLinkAlt /> Demo
+                    </a>
+                  </div>
                 </div>
               </div>
-              
-              <div className="project-content">
-                <div className="project-header">
-                  <h3 className="project-title">{project.title}</h3>
-                  <span className="project-period">{project.period}</span>
-                </div>
-                
-                <p className="project-description">{project.description}</p>
-                
-                <ul className="project-features">
-                  {project.features.map((feature, i) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-                
-                <div className="project-tech">
-                  {project.technologies.map((tech, i) => (
-                    <span key={i} className="tech-pill">{tech}</span>
-                  ))}
-                </div>
-                
-                <div className="project-links">
-                  <a href={project.githubLink} className="project-link github" target="_blank" rel="noopener noreferrer">
-                    <FaGithub /> Code
-                  </a>
-                  <a href={project.demoLink} className="project-link demo" target="_blank" rel="noopener noreferrer">
-                    <FaExternalLinkAlt /> Demo
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
