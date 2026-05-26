@@ -1,12 +1,13 @@
-.footer {
-    background-color: #1c2735;
-    color: white;
-    text-align: center;
-    padding: 1rem 2rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-  }
-  
+.footer{
+  margin-top:4rem;
+
+  padding:2rem;
+
+  text-align:center;
+
+  color:#64748b;
+
+  font-weight:600;
+
+  background:transparent;
+}

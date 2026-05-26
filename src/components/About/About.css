@@ -409,3 +409,54 @@
     padding: 2rem 1.5rem;
   }
 }
+
+/* =========================
+   GLOBAL RESPONSIVE FIXES
+========================= */
+
+*{
+  word-break:break-word;
+}
+
+img{
+  max-width:100%;
+}
+
+.projects-grid,
+.skills-grid,
+.contact-content,
+.about-main{
+  align-items:stretch;
+}
+
+.project-card,
+.skill-category,
+.contact-form-container,
+.experience-card,
+.stat-item{
+  height:100%;
+}
+
+@media(max-width:768px){
+
+  .projects,
+  .skills,
+  .experience,
+  .about,
+  .contact{
+    padding:2rem 1.2rem !important;
+  }
+
+  .project-card,
+  .skill-category,
+  .experience-card{
+    min-height:auto !important;
+  }
+
+  .project-content,
+  .experience-card,
+  .skill-category{
+    padding:1.5rem !important;
+  }
+
+}

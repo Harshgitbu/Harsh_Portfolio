@@ -42,32 +42,12 @@ function App() {
 
   if (isLoading) {
     return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        background: 'linear-gradient(135deg, #6366f1, #ec4899)',
-        color: 'white',
-        fontSize: '1.5rem',
-        fontWeight: '600'
-      }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{ 
-            width: '50px', 
-            height: '50px', 
-            border: '3px solid white', 
-            borderTopColor: 'transparent',
-            borderRadius: '50%',
-            margin: '0 auto 1rem',
-            animation: 'spin 1s linear infinite'
-          }} />
-          <style>{`
-            @keyframes spin {
-              to { transform: rotate(360deg); }
-            }
-          `}</style>
-          Loading Portfolio...
+      <div className="portfolio-loader">
+        <div className="loader-inner">
+          <div className="loader-spinner"></div>
+          <div className="loader-text">
+            Loading Portfolio...
+          </div>
         </div>
       </div>
     );
