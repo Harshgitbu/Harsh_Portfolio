@@ -1,12 +1,11 @@
-import React, { useEffect, useRef } from 'react'; // Removed useState since not needed
+import React, { useEffect, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './About.css';
 
-const About = () => {
+const About = ({ focusedSection }) => {
   const [ref, isVisible] = useFadeInOnScroll();
   const sectionRef = useRef(null);
 
-  // Scroll reveal animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -16,11 +15,11 @@ const About = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -46,26 +45,28 @@ const About = () => {
       gpa: "GPA: 3.60/4.00"
     },
     {
-      degree: "BS in Computer Science", 
+      degree: "BS in Computer Science",
       school: "Fairleigh Dickinson University",
       period: "2017 - 2021",
       gpa: "GPA: 3.69/4.00"
     }
   ];
 
+  const isFaded = focusedSection && focusedSection !== 'about';
+
   return (
-    <section id="about" className="section">
+    <section id="about" className={isFaded ? 'section faded' : 'section'}>
       <div ref={sectionRef} className="reveal">
         <div ref={ref} className={`about fade-in-section ${isVisible ? 'is-visible' : ''}`}>
           <h2>About Me</h2>
-            
+
           <div className="about-main">
             <div className="about-left">
               <div className="about-text">
                 <p>
-                  I'm a Data Scientist and AI Engineer with 4+ years of experience specializing in 
+                  I'm a Data Scientist and AI Engineer with 4+ years of experience specializing in
                   production AI systems and scalable data solutions. Currently working at One Park Financial,
-                  I design, develop, and deploy ML/AI models to solve complex business problems while 
+                  I design, develop, and deploy ML/AI models to solve complex business problems while
                   implementing MLOps best practices.
                 </p>
                 <p>
@@ -78,7 +79,7 @@ const About = () => {
                   systems, delivering measurable business impact through technical innovation.
                 </p>
               </div>
-              
+
               <div className="data-science-vision">
                 <h3>AI Engineering Vision</h3>
                 <p>Building production-ready AI systems that deliver real business value through scalable, efficient, and innovative solutions</p>
@@ -125,7 +126,7 @@ const About = () => {
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     </section>
   );
 };

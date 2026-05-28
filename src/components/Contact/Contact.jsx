@@ -2,10 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Contact.css';
 
-// Import icons
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheck, FaGlobe } from 'react-icons/fa';
 
-const Contact = () => {
+const Contact = ({ focusedSection }) => {
   const [ref, isVisible] = useFadeInOnScroll();
   const [formData, setFormData] = useState({
     name: '',
@@ -18,7 +17,6 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const sectionRef = useRef(null);
 
-  // Scroll reveal animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -28,11 +26,11 @@ const Contact = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -58,85 +56,48 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    {
-      icon: <FaLinkedin />,
-      url: 'https://www.linkedin.com/in/harsh612/',
-      label: 'LinkedIn'
-    },
-    {
-      icon: <FaGithub />,
-      url: 'https://github.com/Harshgitbu',
-      label: 'GitHub'
-    },
-    {
-      icon: <FaGlobe />,
-      url: 'https://harshshah-portfolio.netlify.app',
-      label: 'Portfolio'
-    },
-    {
-      icon: <FaEnvelope />,
-      url: 'mailto:harshtemp612@gmail.com',
-      label: 'Email'
-    }
+    { icon: <FaLinkedin />, url: 'https://www.linkedin.com/in/harsh612/', label: 'LinkedIn' },
+    { icon: <FaGithub />, url: 'https://github.com/Harshgitbu', label: 'GitHub' },
+    { icon: <FaGlobe />, url: 'https://harshshah-portfolio.netlify.app', label: 'Portfolio' },
+    { icon: <FaEnvelope />, url: 'mailto:harshtemp612@gmail.com', label: 'Email' }
   ];
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
     }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
-    }
-
+    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
     }
-
     return newErrors;
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-
     setIsSubmitting(true);
-
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
       console.log('Form submitted:', formData);
-      
       setIsSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
       setErrors({});
@@ -148,10 +109,12 @@ const Contact = () => {
     }
   };
 
+  const isFaded = focusedSection && focusedSection !== 'contact';
+
   if (isSubmitted) {
     return (
-      <section id="contact" className="section">
-        <div ref={sectionRef} className="reveal"> {/* Added sectionRef and reveal */}
+      <section id="contact" className={isFaded ? 'section faded' : 'section'}>
+        <div ref={sectionRef} className="reveal">
           <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
             <h2>Get In Touch</h2>
             <div className="success-message">
@@ -166,9 +129,7 @@ const Contact = () => {
                 <div className="contact-methods">
                   {contactMethods.map((method, index) => (
                     <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
-                      <div className="contact-icon">
-                        {method.icon}
-                      </div>
+                      <div className="contact-icon">{method.icon}</div>
                       <div className="contact-details">
                         <h3>{method.title}</h3>
                         <p>{method.details}</p>
@@ -185,24 +146,22 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="section">
-      <div ref={sectionRef} className="reveal"> {/* Added sectionRef and reveal */}
+    <section id="contact" className={isFaded ? 'section faded' : 'section'}>
+      <div ref={sectionRef} className="reveal">
         <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
           <h2>Get In Touch</h2>
-          
+
           <div className="contact-content">
             <div className="contact-info">
               <p className="contact-description">
-                I'm currently available for AI Engineer and Data Scientist opportunities. 
+                I'm currently available for AI Engineer and Data Scientist opportunities.
                 Whether you have a project in mind or just want to connect, feel free to reach out!
               </p>
-              
+
               <div className="contact-methods">
                 {contactMethods.map((method, index) => (
                   <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
-                    <div className="contact-icon">
-                      {method.icon}
-                    </div>
+                    <div className="contact-icon">{method.icon}</div>
                     <div className="contact-details">
                       <h3>{method.title}</h3>
                       <p>{method.details}</p>
@@ -283,8 +242,8 @@ const Contact = () => {
                   {errors.message && <span className="error-message">{errors.message}</span>}
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className={`submit-btn ${isSubmitting ? 'loading' : ''}`}
                   disabled={isSubmitting}
                 >

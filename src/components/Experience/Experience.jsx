@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'; // Removed useState since not needed
+import React, { useEffect, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Experience.css';
 
@@ -17,7 +17,6 @@ const experiences = [
       'Research and integrate emerging AI/ML technologies (including generative AI and automation tools) to drive innovation.'
     ],
     technologies: ['Python', 'MLOps', 'Docker', 'Kubernetes', 'CI/CD', 'FastAPI', 'AWS', 'Terraform', 'Jenkins'],
-
     achievement: 'Leading AI initiatives and MLOps implementation for enterprise-scale solutions'
   },
   {
@@ -93,11 +92,10 @@ const experiences = [
   }
 ];
 
-const Experience = () => {
+const Experience = ({ focusedSection }) => {
   const [ref, isVisible] = useFadeInOnScroll();
   const sectionRef = useRef(null);
 
-  // Scroll reveal animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -107,17 +105,19 @@ const Experience = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => observer.disconnect();
   }, []);
 
+  const isFaded = focusedSection && focusedSection !== 'experience';
+
   return (
-    <section id="experience" className="section">
-      <div ref={sectionRef} className="reveal">  {/* Added sectionRef wrapper */}
+    <section id="experience" className={isFaded ? 'section faded' : 'section'}>
+      <div ref={sectionRef} className="reveal">
         <div ref={ref} className={`experience fade-in-section ${isVisible ? 'is-visible' : ''}`}>
           <h2>Professional Experience</h2>
           <div className="experience-timeline">
@@ -133,19 +133,19 @@ const Experience = () => {
                     </div>
                     <div className="experience-period">{period}</div>
                   </div>
-                  
+
                   <ul className="experience-details">
                     {details.map((point, i) => (
                       <li key={i}>{point}</li>
                     ))}
                   </ul>
-                  
+
                   {achievement && (
                     <div className="experience-achievement">
                       <span className="achievement-label">Key Achievement:</span> {achievement}
                     </div>
                   )}
-                  
+
                   <div className="experience-tech">
                     {technologies.map((tech, i) => (
                       <span key={i} className="tech-tag">{tech}</span>

@@ -1,7 +1,3 @@
-// ==============================
-// HERO.JSX
-// ==============================
-
 import React, { useEffect, useState } from 'react';
 import SectionWrapper from '../common/SectionWrapper';
 
@@ -67,7 +63,6 @@ const Hero = () => {
     const link = document.createElement('a');
     link.href = resumePdf;
     link.download = 'Harsh_Shah_Resume.pdf';
-
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

@@ -2,25 +2,23 @@ import React, { useEffect, useState, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Skills.css';
 
-// Import icons
-import { 
-  FaDatabase, FaCloud, FaTools, FaCode, FaRobot, 
-  FaChartLine, FaServer, FaAws, FaMicrosoft, FaBrain, 
-  FaDocker, FaGitAlt, FaChartBar 
+import {
+  FaDatabase, FaCloud, FaTools, FaCode, FaRobot,
+  FaChartLine, FaServer, FaAws, FaMicrosoft, FaBrain,
+  FaDocker, FaGitAlt, FaChartBar
 } from 'react-icons/fa';
-import { 
-  SiApachespark, SiTensorflow, SiScikitlearn, 
-  SiTableau, SiDocker, SiKubernetes, SiApachekafka, 
+import {
+  SiApachespark, SiTensorflow, SiScikitlearn,
+  SiTableau, SiDocker, SiKubernetes, SiApachekafka,
   SiFastapi, SiTerraform, SiRedis, SiGrafana
 } from 'react-icons/si';
 
-const Skills = () => {
+const Skills = ({ focusedSection }) => {
   const [ref, isVisible] = useFadeInOnScroll();
   const [activeCategory, setActiveCategory] = useState('all');
   const [animated, setAnimated] = useState(false);
   const sectionRef = useRef(null);
 
-  // Scroll reveal animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -30,11 +28,11 @@ const Skills = () => {
       },
       { threshold: 0.1 }
     );
-    
+
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -55,35 +53,30 @@ const Skills = () => {
   ];
 
   const skills = [
-    // AI & Machine Learning
     { name: 'RAG Systems', level: 90, category: 'ml', icon: <FaRobot />, tags: ['FAISS', 'Vector DB', 'LLMs'] },
     { name: 'Deep Learning', level: 88, category: 'ml', icon: <SiTensorflow />, tags: ['CNNs', 'RNNs', 'Transformers'] },
     { name: 'LLMs (GPT/BERT)', level: 85, category: 'ml', icon: <FaBrain />, tags: ['Fine-tuning', 'Prompt Engineering'] },
     { name: 'Predictive Modeling', level: 92, category: 'ml', icon: <SiScikitlearn />, tags: ['Classification', 'Regression'] },
     { name: 'NLP', level: 87, category: 'ml', icon: <FaRobot />, tags: ['Sentiment', 'Classification'] },
     { name: 'Time Series', level: 85, category: 'ml', icon: <FaChartLine />, tags: ['Forecasting', 'Prophet'] },
-    
-    // MLOps & DevOps
+
     { name: 'Docker', level: 88, category: 'mlops', icon: <SiDocker />, tags: ['Containerization', 'Microservices'] },
     { name: 'Kubernetes', level: 80, category: 'mlops', icon: <SiKubernetes />, tags: ['Orchestration', 'Scaling'] },
     { name: 'CI/CD', level: 90, category: 'mlops', icon: <FaTools />, tags: ['Jenkins', 'GitHub Actions'] },
     { name: 'FastAPI', level: 85, category: 'mlops', icon: <SiFastapi />, tags: ['API Development', 'REST'] },
     { name: 'Terraform', level: 75, category: 'mlops', icon: <SiTerraform />, tags: ['IaC', 'AWS/Azure'] },
     { name: 'Model Monitoring', level: 82, category: 'mlops', icon: <SiGrafana />, tags: ['Prometheus', 'Grafana'] },
-    
-    // Data Engineering
+
     { name: 'Apache Spark', level: 85, category: 'engineering', icon: <SiApachespark />, tags: ['Big Data', 'Distributed'] },
     { name: 'Data Pipelines', level: 90, category: 'engineering', icon: <FaServer />, tags: ['ETL', 'Real-time'] },
     { name: 'Apache Kafka', level: 78, category: 'engineering', icon: <SiApachekafka />, tags: ['Streaming', 'Events'] },
     { name: 'Data Modeling', level: 88, category: 'engineering', icon: <FaDatabase />, tags: ['Warehousing', 'Schema'] },
     { name: 'Vector Databases', level: 85, category: 'engineering', icon: <FaDatabase />, tags: ['FAISS', 'Pinecone'] },
-    
-    // Cloud Platforms
+
     { name: 'Azure', level: 88, category: 'cloud', icon: <FaMicrosoft />, tags: ['ML Studio', 'Data Factory', 'Event Hubs'] },
     { name: 'AWS', level: 82, category: 'cloud', icon: <FaAws />, tags: ['S3', 'EC2', 'RDS', 'Lambda'] },
     { name: 'Redis', level: 80, category: 'cloud', icon: <SiRedis />, tags: ['Caching', 'Queue'] },
-    
-    // Tools & Visualization
+
     { name: 'Power BI', level: 85, category: 'tools', icon: <FaChartBar />, tags: ['Dashboards', 'DAX'] },
     { name: 'Tableau', level: 80, category: 'tools', icon: <SiTableau />, tags: ['Visualization', 'Analytics'] },
     { name: 'Git', level: 92, category: 'tools', icon: <FaGitAlt />, tags: ['Version Control', 'Collaboration'] },
@@ -95,8 +88,8 @@ const Skills = () => {
     levelClass: getSkillLevelClass(skill.level)
   }));
 
-  const filteredSkills = activeCategory === 'all' 
-    ? skillsWithLevelClass 
+  const filteredSkills = activeCategory === 'all'
+    ? skillsWithLevelClass
     : skillsWithLevelClass.filter(skill => skill.category === activeCategory);
 
   const skillsByCategory = {
@@ -113,12 +106,14 @@ const Skills = () => {
     }
   }, [isVisible, animated]);
 
+  const isFaded = focusedSection && focusedSection !== 'skills';
+
   return (
-    <section id="skills" className="section">
-      <div ref={sectionRef} className="reveal">  {/* Added sectionRef wrapper */}
+    <section id="skills" className={isFaded ? 'section faded' : 'section'}>
+      <div ref={sectionRef} className="reveal">
         <div ref={ref} className={`skills fade-in-section ${isVisible ? 'is-visible' : ''}`}>
           <h2>Technical Skills</h2>
-          
+
           <div className="skills-categories">
             {skillCategories.map(category => (
               <button
@@ -144,7 +139,7 @@ const Skills = () => {
                       {skillCategories.find(cat => cat.key === category)?.label}
                     </h3>
                   </div>
-                  
+
                   <div className="skills-list">
                     {categorySkills.map((skill, index) => (
                       <div key={index} className={`skill-item ${skill.levelClass}`}>
@@ -156,9 +151,9 @@ const Skills = () => {
                           <span className="skill-level">{skill.level}%</span>
                         </div>
                         <div className="skill-bar-container">
-                          <div 
-                            className="skill-bar" 
-                            style={{ 
+                          <div
+                            className="skill-bar"
+                            style={{
                               width: animated ? `${skill.level}%` : '0%',
                               transitionDelay: `${index * 0.1}s`
                             }}
@@ -187,9 +182,9 @@ const Skills = () => {
                     <span className="skill-level">{skill.level}%</span>
                   </div>
                   <div className="skill-bar-container">
-                    <div 
-                      className="skill-bar" 
-                      style={{ 
+                    <div
+                      className="skill-bar"
+                      style={{
                         width: animated ? `${skill.level}%` : '0%',
                         transitionDelay: `${index * 0.1}s`
                       }}

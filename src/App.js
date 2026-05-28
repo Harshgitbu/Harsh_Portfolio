@@ -60,45 +60,21 @@ function App() {
       <div className="floating-shape shape-1" />
       <div className="floating-shape shape-2" />
       <div className="floating-shape shape-3" />
-      
+
       <Navbar onSectionFocus={handleSectionFocus} />
-      
+
       <main className="main-content">
-        <section id="hero" className={focusedSection && focusedSection !== 'hero' ? 'section faded' : 'section'}>
-          <div className="section-inner">
-            <Hero />
-          </div>
-        </section>
-
-        <section id="about" className={focusedSection && focusedSection !== 'about' ? 'section faded' : 'section'}>
-          <div className="section-inner">
-            <About />
-          </div>
-        </section>
-
-        <section id="experience" className={focusedSection && focusedSection !== 'experience' ? 'section faded' : 'section'}>
-          <div className="section-inner">
-            <Experience />
-          </div>
-        </section>
-
-        <section id="projects" className={focusedSection && focusedSection !== 'projects' ? 'section faded' : 'section'}>
-          <div className="section-inner">
-            <Projects />
-          </div>
-        </section>
-
-        <section id="skills" className={focusedSection && focusedSection !== 'skills' ? 'section faded' : 'section'}>
-          <div className="section-inner">
-            <Skills />
-          </div>
-        </section>
-
-        <section id="contact" className={focusedSection && focusedSection !== 'contact' ? 'section faded' : 'section'}>
-          <div className="section-inner">
-            <Contact />
-          </div>
-        </section>
+        {/* 
+          Each component (Hero, About, Experience, etc.) already renders 
+          its own <section id="..."> internally. We just render them directly
+          here — no extra wrapper sections needed.
+        */}
+        <Hero focusedSection={focusedSection} />
+        <About focusedSection={focusedSection} />
+        <Experience focusedSection={focusedSection} />
+        <Projects focusedSection={focusedSection} />
+        <Skills focusedSection={focusedSection} />
+        <Contact focusedSection={focusedSection} />
       </main>
 
       <Footer />
