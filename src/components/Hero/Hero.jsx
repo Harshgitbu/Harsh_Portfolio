@@ -1,133 +1,154 @@
-import React, { useEffect, useState, useRef } from 'react'; // Combined imports
-import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
+// ==============================
+// HERO.JSX
+// ==============================
+
+import React, { useEffect, useState } from 'react';
+import SectionWrapper from '../common/SectionWrapper';
+
 import resumePdf from './resume.pdf';
 import profileImage from './Linkedin_pro.jpg';
+
 import './Hero.css';
 
-import { FaGithub, FaLinkedin, FaEnvelope, FaFileDownload, FaArrowDown } from 'react-icons/fa';
+import {
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
+  FaFileDownload,
+  FaArrowDown
+} from 'react-icons/fa';
+
+const texts = [
+  'AI Engineer',
+  'MLOps Specialist',
+  'RAG Systems Architect',
+  'Data Scientist',
+  'Production AI Engineer'
+];
 
 const Hero = () => {
-  const [visible, setVisible] = useState(false);
   const [typedText, setTypedText] = useState('');
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [ref, isVisible] = useFadeInOnScroll();
-  const sectionRef = useRef(null);
-
-  // Scroll reveal animation
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      },
-      { threshold: 0.1 }
-    );
-    
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    
-    return () => observer.disconnect();
-  }, []);
-
-  // Typing animation
-  useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
-    const texts = [
-      "AI Engineer",
-      "MLOps Specialist",
-      "RAG Systems Architect",
-      "Data Scientist",
-      "Production AI Engineer"
-    ];
+    const currentText = texts[currentIndex];
 
-    const currentText = texts[currentTextIndex];
     const timeout = setTimeout(() => {
-      if (!isDeleting && charIndex < currentText.length) {
-        setTypedText(currentText.substring(0, charIndex + 1));
-        setCharIndex(charIndex + 1);
-      } else if (isDeleting && charIndex > 0) {
-        setTypedText(currentText.substring(0, charIndex - 1));
-        setCharIndex(charIndex - 1);
-      } else if (!isDeleting && charIndex === currentText.length) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && charIndex === 0) {
-        setIsDeleting(false);
-        setCurrentTextIndex((currentTextIndex + 1) % texts.length);
+      if (!isDeleting) {
+        setTypedText(currentText.substring(0, subIndex + 1));
+        setSubIndex(prev => prev + 1);
+
+        if (subIndex === currentText.length) {
+          setTimeout(() => setIsDeleting(true), 1500);
+        }
+      } else {
+        setTypedText(currentText.substring(0, subIndex - 1));
+        setSubIndex(prev => prev - 1);
+
+        if (subIndex === 0) {
+          setIsDeleting(false);
+          setCurrentIndex(prev => (prev + 1) % texts.length);
+        }
       }
     }, isDeleting ? 50 : 100);
 
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, currentTextIndex]);
+  }, [subIndex, currentIndex, isDeleting]);
 
   const scrollToProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+    document
+      .getElementById('projects')
+      ?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const downloadResume = () => {
     const link = document.createElement('a');
     link.href = resumePdf;
     link.download = 'Harsh_Shah_Resume.pdf';
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   return (
-    <section
-      id="hero"
-      className={`hero ${visible ? 'visible' : ''} ${isVisible ? 'scroll-visible' : ''}`}
-      ref={ref}
-    >
-      <div ref={sectionRef} className="hero-container reveal"> {/* Added sectionRef and reveal class */}
+    <section id="hero" className="hero">
+      <SectionWrapper className="hero-container">
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-title">Harsh Shah</h1>
+
             <p className="hero-subtitle">
               AI Engineer | MLOps Specialist | Data Scientist
             </p>
+
             <div className="typing-text">
-              {typedText}<span className="cursor">|</span>
+              {typedText}
+              <span className="cursor">|</span>
             </div>
+
             <div className="hero-buttons">
-              <button onClick={scrollToProjects} className="hero-button">
-                <FaArrowDown /> View My Work
+              <button
+                className="hero-button"
+                onClick={scrollToProjects}
+                aria-label="View Projects"
+              >
+                <FaArrowDown />
+                View My Work
               </button>
-              <button onClick={downloadResume} className="hero-button secondary">
-                <FaFileDownload /> Download Resume
+
+              <button
+                className="hero-button secondary"
+                onClick={downloadResume}
+                aria-label="Download Resume"
+              >
+                <FaFileDownload />
+                Download Resume
               </button>
             </div>
+
             <div className="social-links">
-              <a href="https://github.com/Harshgitbu" className="social-link" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/Harshgitbu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="GitHub Profile"
+              >
                 <FaGithub size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/harsh612/" className="social-link" target="_blank" rel="noopener noreferrer">
+
+              <a
+                href="https://www.linkedin.com/in/harsh612/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="LinkedIn Profile"
+              >
                 <FaLinkedin size={20} />
               </a>
-              <a href="mailto:harshtemp612@gmail.com" className="social-link">
+
+              <a
+                href="mailto:harshtemp612@gmail.com"
+                className="social-link"
+                aria-label="Send Email"
+              >
                 <FaEnvelope size={20} />
               </a>
             </div>
           </div>
+
           <div className="hero-image">
-            <img 
-              src={profileImage} 
-              alt="Harsh Shah" 
+            <img
+              src={profileImage}
+              alt="Harsh Shah"
               className="profile-image"
-              onError={(e) => {
-                e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDI4MCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTQwIiBjeT0iMTQwIiByPSIxNDAiIGZpbGw9IiMxYTczZTgiLz48dGV4dCB4PSIxNDAiIHk9IjE2MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjgwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SFM8L3RleHQ+PC9zdmc+';
-              }}
             />
           </div>
         </div>
-      </div>
+      </SectionWrapper>
     </section>
   );
 };
