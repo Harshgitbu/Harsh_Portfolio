@@ -1,161 +1,307 @@
-// ==============================
-// CONTACT.JSX
-// ==============================
-
-import React, { useState } from 'react';
-
-import SectionWrapper from '../common/SectionWrapper';
-
+import React, { useEffect, useState, useRef } from 'react';
+import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
 import './Contact.css';
 
-import {
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-  FaLinkedin,
-  FaGithub,
-  FaPaperPlane,
-  FaGlobe
-} from 'react-icons/fa';
+// Import icons
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheck, FaGlobe } from 'react-icons/fa';
 
 const Contact = () => {
+  const [ref, isVisible] = useFadeInOnScroll();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const sectionRef = useRef(null);
 
-  const handleChange = e => {
+  // Scroll reveal animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+
+  const contactMethods = [
+    {
+      icon: <FaEnvelope />,
+      title: 'Email',
+      details: 'harshtemp612@gmail.com',
+      link: 'mailto:harshtemp612@gmail.com'
+    },
+    {
+      icon: <FaPhone />,
+      title: 'Phone',
+      details: '+91 9023974413',
+      link: 'tel:+919023974413'
+    },
+    {
+      icon: <FaMapMarkerAlt />,
+      title: 'Location',
+      details: 'Ahmedabad, Gujarat, India',
+      link: 'https://maps.google.com/?q=Ahmedabad,Gujarat,India'
+    }
+  ];
+
+  const socialLinks = [
+    {
+      icon: <FaLinkedin />,
+      url: 'https://www.linkedin.com/in/harsh612/',
+      label: 'LinkedIn'
+    },
+    {
+      icon: <FaGithub />,
+      url: 'https://github.com/Harshgitbu',
+      label: 'GitHub'
+    },
+    {
+      icon: <FaGlobe />,
+      url: 'https://harshshah-portfolio.netlify.app',
+      label: 'Portfolio'
+    },
+    {
+      icon: <FaEnvelope />,
+      url: 'mailto:harshtemp612@gmail.com',
+      label: 'Email'
+    }
+  ];
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+
+    return newErrors;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }));
+
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    const newErrors = validateForm();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
 
-    console.log(formData);
+    setIsSubmitting(true);
 
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      console.log('Form submitted:', formData);
+      
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setErrors({});
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setErrors({ submit: 'Failed to send message. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (isSubmitted) {
+    return (
+      <section id="contact" className="section">
+        <div ref={sectionRef} className="reveal"> {/* Added sectionRef and reveal */}
+          <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
+            <h2>Get In Touch</h2>
+            <div className="success-message">
+              <FaCheck style={{ marginRight: '0.5rem' }} />
+              Thank you for your message! I'll get back to you within 24 hours.
+            </div>
+            <div className="contact-content">
+              <div className="contact-info">
+                <p className="contact-description">
+                  In the meantime, feel free to connect with me through any of these channels:
+                </p>
+                <div className="contact-methods">
+                  {contactMethods.map((method, index) => (
+                    <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
+                      <div className="contact-icon">
+                        {method.icon}
+                      </div>
+                      <div className="contact-details">
+                        <h3>{method.title}</h3>
+                        <p>{method.details}</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="contact" className="section">
-      <SectionWrapper className="contact">
-        <h2>Get In Touch</h2>
+      <div ref={sectionRef} className="reveal"> {/* Added sectionRef and reveal */}
+        <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
+          <h2>Get In Touch</h2>
+          
+          <div className="contact-content">
+            <div className="contact-info">
+              <p className="contact-description">
+                I'm currently available for AI Engineer and Data Scientist opportunities. 
+                Whether you have a project in mind or just want to connect, feel free to reach out!
+              </p>
+              
+              <div className="contact-methods">
+                {contactMethods.map((method, index) => (
+                  <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
+                    <div className="contact-icon">
+                      {method.icon}
+                    </div>
+                    <div className="contact-details">
+                      <h3>{method.title}</h3>
+                      <p>{method.details}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
 
-        <div className="contact-content">
-          <div className="contact-info">
-            <div className="contact-methods">
-              <a
-                href="mailto:harshtemp612@gmail.com"
-                className="contact-method"
-                aria-label="Send Email"
-              >
-                <FaEnvelope />
-                <span>harshtemp612@gmail.com</span>
-              </a>
+              <div className="social-links-contact">
+                {socialLinks.map((social, index) => (
+                  <a key={index} href={social.url} className="social-link-contact" target="_blank" rel="noopener noreferrer" aria-label={social.label}>
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
 
-              <a
-                href="tel:+919023974413"
-                className="contact-method"
-                aria-label="Call Phone Number"
-              >
-                <FaPhone />
-                <span>+91 9023974413</span>
-              </a>
-
-              <div className="contact-method">
-                <FaMapMarkerAlt />
-                <span>Ahmedabad, Gujarat, India</span>
+              <div className="availability">
+                <div className="availability-dot"></div>
+                <span className="availability-text">Available for opportunities | 4+ years experience</span>
               </div>
             </div>
 
-            <div className="social-links-contact">
-              <a
-                href="https://github.com/Harshgitbu"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub Profile"
-              >
-                <FaGithub />
-              </a>
+            <div className="contact-form-container">
+              <form className="contact-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="name" className="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className={`form-input ${errors.name ? 'error' : ''}`}
+                    placeholder="Your full name"
+                  />
+                  {errors.name && <span className="error-message">{errors.name}</span>}
+                </div>
 
-              <a
-                href="https://www.linkedin.com/in/harsh612/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-              >
-                <FaLinkedin />
-              </a>
+                <div className="form-group">
+                  <label htmlFor="email" className="form-label">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`form-input ${errors.email ? 'error' : ''}`}
+                    placeholder="your.email@example.com"
+                  />
+                  {errors.email && <span className="error-message">{errors.email}</span>}
+                </div>
 
-              <a
-                href="https://harshshah-portfolio.netlify.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Portfolio Website"
-              >
-                <FaGlobe />
-              </a>
+                <div className="form-group">
+                  <label htmlFor="subject" className="form-label">Subject</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    className={`form-input ${errors.subject ? 'error' : ''}`}
+                    placeholder="What's this about?"
+                  />
+                  {errors.subject && <span className="error-message">{errors.subject}</span>}
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="message" className="form-label">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={`form-textarea ${errors.message ? 'error' : ''}`}
+                    placeholder="Tell me about your project or opportunity..."
+                    rows="5"
+                  />
+                  {errors.message && <span className="error-message">{errors.message}</span>}
+                </div>
+
+                <button 
+                  type="submit" 
+                  className={`submit-btn ${isSubmitting ? 'loading' : ''}`}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : (
+                    <>
+                      <FaPaperPlane />
+                      Send Message
+                    </>
+                  )}
+                </button>
+
+                {errors.submit && <span className="error-message">{errors.submit}</span>}
+              </form>
             </div>
           </div>
-
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              value={formData.name}
-              onChange={handleChange}
-              aria-label="Full Name"
-            />
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={formData.email}
-              onChange={handleChange}
-              aria-label="Email Address"
-            />
-
-            <input
-              type="text"
-              name="subject"
-              placeholder="Subject"
-              value={formData.subject}
-              onChange={handleChange}
-              aria-label="Subject"
-            />
-
-            <textarea
-              name="message"
-              rows="5"
-              placeholder="Your Message"
-              value={formData.message}
-              onChange={handleChange}
-              aria-label="Message"
-            />
-
-            <button
-              type="submit"
-              className="submit-btn"
-              aria-label="Send Message"
-            >
-              <FaPaperPlane />
-              Send Message
-            </button>
-          </form>
         </div>
-      </SectionWrapper>
+      </div>
     </section>
   );
 };
