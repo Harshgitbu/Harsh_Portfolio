@@ -14,12 +14,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800);
-
-    const handleScroll = () => {
-      setFocusedSection(null);
-    };
-
+    const timer = setTimeout(() => setIsLoading(false), 900);
+    const handleScroll = () => setFocusedSection(null);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       clearTimeout(timer);
@@ -29,46 +25,35 @@ function App() {
 
   const handleSectionFocus = (id) => {
     setFocusedSection(id);
-    const element = document.getElementById(id);
-    if (element) {
+    const el = document.getElementById(id);
+    if (el) {
       const offset = 80;
-      const elementPosition = element.offsetTop - offset;
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: el.offsetTop - offset, behavior: 'smooth' });
     }
   };
 
   if (isLoading) {
     return (
       <div className="portfolio-loader">
-        <div className="loader-inner">
-          <div className="loader-spinner"></div>
-          <div className="loader-text">
-            Loading Portfolio...
-          </div>
+        <div className="loader-logo">HS/</div>
+        <div className="loader-bar-wrap">
+          <div className="loader-bar" />
         </div>
+        <div className="loader-text">Initializing portfolio</div>
       </div>
     );
   }
 
   return (
     <div className="App">
-      {/* Animated Background */}
-      <div className="animated-bg" />
-      <div className="floating-shape shape-1" />
-      <div className="floating-shape shape-2" />
-      <div className="floating-shape shape-3" />
+      <div className="grid-bg" />
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
 
       <Navbar onSectionFocus={handleSectionFocus} />
 
       <main className="main-content">
-        {/* 
-          Each component (Hero, About, Experience, etc.) already renders 
-          its own <section id="..."> internally. We just render them directly
-          here — no extra wrapper sections needed.
-        */}
         <Hero focusedSection={focusedSection} />
         <About focusedSection={focusedSection} />
         <Experience focusedSection={focusedSection} />

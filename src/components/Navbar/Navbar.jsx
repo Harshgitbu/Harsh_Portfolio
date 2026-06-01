@@ -4,10 +4,10 @@ import './Navbar.css';
 const sections = [
   { id: 'hero', label: 'Intro' },
   { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
+  { id: 'experience', label: 'Exp' },
+  { id: 'projects', label: 'Work' },
   { id: 'skills', label: 'Skills' },
-  { id: 'contact', label: 'Contact' }
+  { id: 'contact', label: 'Contact' },
 ];
 
 const Navbar = ({ onSectionFocus }) => {
@@ -17,43 +17,29 @@ const Navbar = ({ onSectionFocus }) => {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-
-      const current = sections.find(section => {
-        const element = document.getElementById(section.id);
-
-        if (!element) return false;
-
-        const rect = element.getBoundingClientRect();
-
-        return rect.top <= 150 && rect.bottom >= 150;
+      const current = sections.find(s => {
+        const el = document.getElementById(s.id);
+        if (!el) return false;
+        const rect = el.getBoundingClientRect();
+        return rect.top <= 140 && rect.bottom >= 140;
       });
-
-      if (current) {
-        setActiveSection(current.id);
-      }
+      if (current) setActiveSection(current.id);
     };
-
-    window.addEventListener('scroll', handleScroll, {
-      passive: true
-    });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-logo">Harsh Shah</div>
-
+      <div className="navbar-logo">HS<span>/</span></div>
       <ul className="navbar-links">
-        {sections.map(section => (
-          <li key={section.id}>
+        {sections.map(s => (
+          <li key={s.id}>
             <button
-              className={activeSection === section.id ? 'active' : ''}
-              onClick={() => onSectionFocus(section.id)}
+              className={activeSection === s.id ? 'active' : ''}
+              onClick={() => onSectionFocus(s.id)}
             >
-              {section.label}
+              {s.label}
             </button>
           </li>
         ))}

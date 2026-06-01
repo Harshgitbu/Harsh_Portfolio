@@ -1,221 +1,166 @@
 import React, { useEffect, useState, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
+import {
+  FaBrain, FaDatabase, FaCloud, FaTools, FaCode, FaDocker,
+} from 'react-icons/fa';
 import './Skills.css';
 
-import {
-  FaDatabase, FaCloud, FaTools, FaCode, FaRobot,
-  FaChartLine, FaServer, FaAws, FaMicrosoft, FaBrain,
-  FaDocker, FaGitAlt, FaChartBar
-} from 'react-icons/fa';
-import {
-  SiApachespark, SiTensorflow, SiScikitlearn,
-  SiTableau, SiDocker, SiKubernetes, SiApachekafka,
-  SiFastapi, SiTerraform, SiRedis, SiGrafana
-} from 'react-icons/si';
+const skillData = [
+  {
+    key: 'ml', label: 'AI & ML', icon: <FaBrain />,
+    skills: [
+      { name: 'Predictive Modeling', level: 92, tags: ['Classification', 'Regression'] },
+      { name: 'RAG Systems', level: 90, tags: ['FAISS', 'Vector DB'] },
+      { name: 'NLP', level: 87, tags: ['Sentiment', 'Classification'] },
+      { name: 'Deep Learning', level: 88, tags: ['CNNs', 'Transformers'] },
+      { name: 'LLMs (GPT/BERT)', level: 85, tags: ['Fine-tuning', 'Prompt Eng.'] },
+      { name: 'Time Series', level: 85, tags: ['Forecasting', 'Prophet'] },
+    ]
+  },
+  {
+    key: 'mlops', label: 'MLOps & DevOps', icon: <FaDocker />,
+    skills: [
+      { name: 'CI/CD', level: 90, tags: ['Jenkins', 'GitHub Actions'] },
+      { name: 'Docker', level: 88, tags: ['Containers', 'Microservices'] },
+      { name: 'FastAPI', level: 85, tags: ['REST', 'API Dev'] },
+      { name: 'Kubernetes', level: 80, tags: ['Orchestration', 'Scaling'] },
+      { name: 'Model Monitoring', level: 82, tags: ['Prometheus', 'Grafana'] },
+      { name: 'Terraform', level: 75, tags: ['IaC', 'AWS/Azure'] },
+    ]
+  },
+  {
+    key: 'engineering', label: 'Data Engineering', icon: <FaDatabase />,
+    skills: [
+      { name: 'Data Pipelines', level: 90, tags: ['ETL', 'Real-time'] },
+      { name: 'Apache Spark', level: 85, tags: ['Big Data', 'Distributed'] },
+      { name: 'Vector Databases', level: 85, tags: ['FAISS', 'Pinecone'] },
+      { name: 'Data Modeling', level: 88, tags: ['Warehousing', 'Schema'] },
+      { name: 'Apache Kafka', level: 78, tags: ['Streaming', 'Events'] },
+    ]
+  },
+  {
+    key: 'cloud', label: 'Cloud Platforms', icon: <FaCloud />,
+    skills: [
+      { name: 'Azure', level: 88, tags: ['ML Studio', 'Data Factory'] },
+      { name: 'AWS', level: 82, tags: ['EC2', 'S3', 'Lambda'] },
+      { name: 'Redis', level: 80, tags: ['Caching', 'Queue'] },
+    ]
+  },
+  {
+    key: 'tools', label: 'Tools & Viz', icon: <FaTools />,
+    skills: [
+      { name: 'Git', level: 92, tags: ['Version Control'] },
+      { name: 'Power BI', level: 85, tags: ['Dashboards', 'DAX'] },
+      { name: 'Tableau', level: 80, tags: ['Visualization'] },
+      { name: 'Grafana', level: 78, tags: ['Monitoring', 'Metrics'] },
+    ]
+  },
+];
+
+const getLevel = (l) => l >= 85 ? 'advanced' : l >= 75 ? 'intermediate' : 'beginner';
+
+const tabs = [{ key: 'all', label: 'All Skills', icon: <FaCode /> }, ...skillData];
 
 const Skills = ({ focusedSection }) => {
   const [ref, isVisible] = useFadeInOnScroll();
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeTab, setActiveTab] = useState('all');
   const [animated, setAnimated] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      },
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) e.target.classList.add('active'); },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
   }, []);
 
-  const getSkillLevelClass = (level) => {
-    if (level >= 85) return 'advanced';
-    if (level >= 75) return 'intermediate';
-    if (level >= 60) return 'beginner';
-    return 'novice';
-  };
+  useEffect(() => { if (isVisible && !animated) setAnimated(true); }, [isVisible, animated]);
 
-  const skillCategories = [
-    { key: 'all', label: 'All Skills', icon: <FaCode /> },
-    { key: 'ml', label: 'AI & ML', icon: <FaBrain /> },
-    { key: 'mlops', label: 'MLOps & DevOps', icon: <FaDocker /> },
-    { key: 'engineering', label: 'Data Engineering', icon: <FaDatabase /> },
-    { key: 'cloud', label: 'Cloud Platforms', icon: <FaCloud /> },
-    { key: 'tools', label: 'Tools & Visualization', icon: <FaTools /> }
-  ];
-
-  const skills = [
-    { name: 'RAG Systems', level: 90, category: 'ml', icon: <FaRobot />, tags: ['FAISS', 'Vector DB', 'LLMs'] },
-    { name: 'Deep Learning', level: 88, category: 'ml', icon: <SiTensorflow />, tags: ['CNNs', 'RNNs', 'Transformers'] },
-    { name: 'LLMs (GPT/BERT)', level: 85, category: 'ml', icon: <FaBrain />, tags: ['Fine-tuning', 'Prompt Engineering'] },
-    { name: 'Predictive Modeling', level: 92, category: 'ml', icon: <SiScikitlearn />, tags: ['Classification', 'Regression'] },
-    { name: 'NLP', level: 87, category: 'ml', icon: <FaRobot />, tags: ['Sentiment', 'Classification'] },
-    { name: 'Time Series', level: 85, category: 'ml', icon: <FaChartLine />, tags: ['Forecasting', 'Prophet'] },
-
-    { name: 'Docker', level: 88, category: 'mlops', icon: <SiDocker />, tags: ['Containerization', 'Microservices'] },
-    { name: 'Kubernetes', level: 80, category: 'mlops', icon: <SiKubernetes />, tags: ['Orchestration', 'Scaling'] },
-    { name: 'CI/CD', level: 90, category: 'mlops', icon: <FaTools />, tags: ['Jenkins', 'GitHub Actions'] },
-    { name: 'FastAPI', level: 85, category: 'mlops', icon: <SiFastapi />, tags: ['API Development', 'REST'] },
-    { name: 'Terraform', level: 75, category: 'mlops', icon: <SiTerraform />, tags: ['IaC', 'AWS/Azure'] },
-    { name: 'Model Monitoring', level: 82, category: 'mlops', icon: <SiGrafana />, tags: ['Prometheus', 'Grafana'] },
-
-    { name: 'Apache Spark', level: 85, category: 'engineering', icon: <SiApachespark />, tags: ['Big Data', 'Distributed'] },
-    { name: 'Data Pipelines', level: 90, category: 'engineering', icon: <FaServer />, tags: ['ETL', 'Real-time'] },
-    { name: 'Apache Kafka', level: 78, category: 'engineering', icon: <SiApachekafka />, tags: ['Streaming', 'Events'] },
-    { name: 'Data Modeling', level: 88, category: 'engineering', icon: <FaDatabase />, tags: ['Warehousing', 'Schema'] },
-    { name: 'Vector Databases', level: 85, category: 'engineering', icon: <FaDatabase />, tags: ['FAISS', 'Pinecone'] },
-
-    { name: 'Azure', level: 88, category: 'cloud', icon: <FaMicrosoft />, tags: ['ML Studio', 'Data Factory', 'Event Hubs'] },
-    { name: 'AWS', level: 82, category: 'cloud', icon: <FaAws />, tags: ['S3', 'EC2', 'RDS', 'Lambda'] },
-    { name: 'Redis', level: 80, category: 'cloud', icon: <SiRedis />, tags: ['Caching', 'Queue'] },
-
-    { name: 'Power BI', level: 85, category: 'tools', icon: <FaChartBar />, tags: ['Dashboards', 'DAX'] },
-    { name: 'Tableau', level: 80, category: 'tools', icon: <SiTableau />, tags: ['Visualization', 'Analytics'] },
-    { name: 'Git', level: 92, category: 'tools', icon: <FaGitAlt />, tags: ['Version Control', 'Collaboration'] },
-    { name: 'Grafana', level: 78, category: 'tools', icon: <SiGrafana />, tags: ['Monitoring', 'Metrics'] }
-  ];
-
-  const skillsWithLevelClass = skills.map(skill => ({
-    ...skill,
-    levelClass: getSkillLevelClass(skill.level)
-  }));
-
-  const filteredSkills = activeCategory === 'all'
-    ? skillsWithLevelClass
-    : skillsWithLevelClass.filter(skill => skill.category === activeCategory);
-
-  const skillsByCategory = {
-    ml: skillsWithLevelClass.filter(skill => skill.category === 'ml'),
-    mlops: skillsWithLevelClass.filter(skill => skill.category === 'mlops'),
-    engineering: skillsWithLevelClass.filter(skill => skill.category === 'engineering'),
-    cloud: skillsWithLevelClass.filter(skill => skill.category === 'cloud'),
-    tools: skillsWithLevelClass.filter(skill => skill.category === 'tools')
-  };
-
-  useEffect(() => {
-    if (isVisible && !animated) {
-      setAnimated(true);
-    }
-  }, [isVisible, animated]);
-
-  const isFaded = focusedSection && focusedSection !== 'skills';
+  const currentData = activeTab === 'all' ? skillData : skillData.filter(g => g.key === activeTab);
 
   return (
-    <section id="skills" className={isFaded ? 'section faded' : 'section'}>
+    <section id="skills" className={`section ${focusedSection && focusedSection !== 'skills' ? 'faded' : ''}`}>
       <div ref={sectionRef} className="reveal">
-        <div ref={ref} className={`skills fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-          <h2>Technical Skills</h2>
+        <div ref={ref} className="skills-wrap">
+          <p className="section-label">04 — Skills</p>
+          <h2 className="section-title">Technical Stack</h2>
 
-          <div className="skills-categories">
-            {skillCategories.map(category => (
+          <div className="skills-tabs">
+            {tabs.map(t => (
               <button
-                key={category.key}
-                className={`category-btn ${activeCategory === category.key ? 'active' : ''}`}
-                onClick={() => setActiveCategory(category.key)}
+                key={t.key}
+                className={`skills-tab ${activeTab === t.key ? 'active' : ''}`}
+                onClick={() => setActiveTab(t.key)}
               >
-                {category.icon}
-                {category.label}
+                {t.icon} {t.label}
               </button>
             ))}
           </div>
 
-          {activeCategory === 'all' ? (
+          {activeTab === 'all' ? (
             <div className="skills-grid">
-              {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
-                <div key={category} className={`skill-category ${category}`}>
-                  <div className="category-header">
-                    <div className="category-icon">
-                      {skillCategories.find(cat => cat.key === category)?.icon}
-                    </div>
-                    <h3 className="category-title">
-                      {skillCategories.find(cat => cat.key === category)?.label}
-                    </h3>
+              {currentData.map(group => (
+                <div key={group.key} className="skill-group">
+                  <div className="skill-group-header">
+                    <div className="skill-group-icon">{group.icon}</div>
+                    <span className="skill-group-title">{group.label}</span>
                   </div>
-
-                  <div className="skills-list">
-                    {categorySkills.map((skill, index) => (
-                      <div key={index} className={`skill-item ${skill.levelClass}`}>
-                        <div className="skill-header">
-                          <span className="skill-name">
-                            {skill.icon}
-                            {skill.name}
-                          </span>
-                          <span className="skill-level">{skill.level}%</span>
-                        </div>
-                        <div className="skill-bar-container">
-                          <div
-                            className="skill-bar"
-                            style={{
-                              width: animated ? `${skill.level}%` : '0%',
-                              transitionDelay: `${index * 0.1}s`
-                            }}
-                          ></div>
-                        </div>
-                        <div className="skill-tags">
-                          {skill.tags.map((tag, tagIndex) => (
-                            <span key={tagIndex} className="skill-tag">{tag}</span>
-                          ))}
-                        </div>
+                  {group.skills.map((s, i) => (
+                    <div key={i} className={`skill-item ${getLevel(s.level)}`}>
+                      <div className="skill-row">
+                        <span className="skill-name">{s.name}</span>
+                        <span className="skill-pct">{s.level}%</span>
                       </div>
-                    ))}
-                  </div>
+                      <div className="skill-bar-bg">
+                        <div
+                          className="skill-bar-fill"
+                          style={{ width: animated ? `${s.level}%` : '0%', transitionDelay: `${i * 0.07}s` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
           ) : (
-            <div className="skills-list-single">
-              {filteredSkills.map((skill, index) => (
-                <div key={index} className={`skill-item ${skill.levelClass}`}>
-                  <div className="skill-header">
-                    <span className="skill-name">
-                      {skill.icon}
-                      {skill.name}
-                    </span>
-                    <span className="skill-level">{skill.level}%</span>
+            <div className="skills-single">
+              {currentData[0]?.skills.map((s, i) => (
+                <div key={i} className={`skill-item ${getLevel(s.level)}`}>
+                  <div className="skill-row">
+                    <span className="skill-name">{s.name}</span>
+                    <span className="skill-pct">{s.level}%</span>
                   </div>
-                  <div className="skill-bar-container">
+                  <div className="skill-bar-bg">
                     <div
-                      className="skill-bar"
-                      style={{
-                        width: animated ? `${skill.level}%` : '0%',
-                        transitionDelay: `${index * 0.1}s`
-                      }}
-                    ></div>
+                      className="skill-bar-fill"
+                      style={{ width: animated ? `${s.level}%` : '0%', transitionDelay: `${i * 0.07}s` }}
+                    />
                   </div>
-                  <div className="skill-tags">
-                    {skill.tags.map((tag, tagIndex) => (
-                      <span key={tagIndex} className="skill-tag">{tag}</span>
-                    ))}
+                  <div className="skill-tags-row">
+                    {s.tags.map(t => <span key={t} className="skill-sub-tag">{t}</span>)}
                   </div>
                 </div>
               ))}
             </div>
           )}
 
-          <div className="skills-overview">
-            <div className="overview-item">
-              <span className="overview-number" style={{color: '#10b981'}}>85%+</span>
-              <span className="overview-label">Advanced</span>
+          <div className="skills-legend">
+            <div className="legend-item">
+              <div className="legend-dot" />
+              <span className="legend-range">85%+</span>
+              <span className="legend-label">Advanced</span>
             </div>
-            <div className="overview-item">
-              <span className="overview-number" style={{color: '#f59e0b'}}>75-85%</span>
-              <span className="overview-label">Intermediate</span>
+            <div className="legend-item">
+              <div className="legend-dot" />
+              <span className="legend-range">75–85%</span>
+              <span className="legend-label">Intermediate</span>
             </div>
-            <div className="overview-item">
-              <span className="overview-number" style={{color: '#eab308'}}>60-75%</span>
-              <span className="overview-label">Beginner</span>
-            </div>
-            <div className="overview-item">
-              <span className="overview-number" style={{color: '#ef4444'}}>Below 60%</span>
-              <span className="overview-label">Novice</span>
+            <div className="legend-item">
+              <div className="legend-dot" />
+              <span className="legend-range">60–75%</span>
+              <span className="legend-label">Beginner</span>
             </div>
           </div>
         </div>

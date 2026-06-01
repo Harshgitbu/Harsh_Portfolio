@@ -6,90 +6,86 @@ const experiences = [
   {
     role: 'AI Engineer',
     company: 'One Park Financial',
-    location: 'USA (Remote)',
-    period: 'Feb 2026 – Present',
+    location: 'USA · Remote',
+    period: 'May 2026 – Present',
     details: [
-      'Design, develop, and deploy machine learning and AI models to solve business problems and enhance product capabilities.',
-      'Build and optimize data pipelines for model training, validation, and deployment using large-scale datasets.',
-      'Collaborate with cross-functional teams (engineering, product, analytics) to translate business requirements into scalable AI solutions.',
-      'Evaluate, fine-tune, and monitor model performance, ensuring accuracy, reliability, and continuous improvement.',
-      'Implement MLOps practices, including model versioning, deployment, and lifecycle management.',
-      'Research and integrate emerging AI/ML technologies (including generative AI and automation tools) to drive innovation.'
+      'Design, develop, and deploy ML/AI models to solve business problems and enhance product capabilities.',
+      'Build and optimize data pipelines for model training, validation, and deployment on large-scale datasets.',
+      'Implement MLOps practices: model versioning, deployment, and lifecycle management.',
+      'Research and integrate generative AI and automation tools to drive innovation.',
+      'Collaborate with cross-functional teams to translate business requirements into scalable AI solutions.',
     ],
-    technologies: ['Python', 'MLOps', 'Docker', 'Kubernetes', 'CI/CD', 'FastAPI', 'AWS', 'Terraform', 'Jenkins'],
-    achievement: 'Leading AI initiatives and MLOps implementation for enterprise-scale solutions'
+    tech: ['Python', 'MLOps', 'Docker', 'Kubernetes', 'CI/CD', 'FastAPI', 'AWS', 'Terraform'],
+    achievement: 'Leading AI initiatives and MLOps implementation for enterprise-scale solutions',
   },
   {
     role: 'AI/ML Freelance Consultant',
     company: 'GoCreation',
-    location: 'Ahmedabad, Gujarat, India',
-    period: 'Mar 2025 – May 2025',
+    location: 'Ahmedabad, India',
+    period: 'Mar 2026 – May 2026',
     details: [
       'Engineered WhatsApp AI Sales Automation Agent using Claude API with constrained generation via structured prompt design.',
-      'Achieved reliable slot filling (product, quantity, city, frequency) from unstructured customer conversation.',
       'Designed data flywheel architecture enabling personalized RAG-style context injection for smarter recommendations.',
-      'Built hybrid LLM + state machine orchestration layer enforcing business logic while preserving natural language flexibility.',
-      'Deployed full-stack system with Flask webhook server, database, React admin dashboard, and background scheduler.'
+      'Built hybrid LLM + state machine orchestration layer enforcing business logic with natural language flexibility.',
+      'Deployed full-stack system: Flask webhook server, PostgreSQL, React admin dashboard, and background scheduler.',
     ],
-    technologies: ['Python', 'Flask', 'Claude API', 'SQLAlchemy', 'Meta Cloud API', 'React', 'PostgreSQL'],
-    achievement: 'Delivered production-ready AI sales automation system with $0 operational cost'
+    tech: ['Python', 'Flask', 'Claude API', 'SQLAlchemy', 'Meta Cloud API', 'React', 'PostgreSQL'],
+    achievement: 'Delivered production-ready AI sales automation system with $0 operational cost',
   },
   {
     role: 'Data Science Intern',
     company: 'Petpooja (Restaurant POS Software)',
-    location: 'Ahmedabad, Gujarat, India',
+    location: 'Ahmedabad, India',
     period: 'Jun 2025 – Jul 2025',
     details: [
       'Enhanced analytics dashboards (sales, inventory, taxation, staffing), improving reporting speed by 40%.',
       'Built aggregation logic for city/outlet-level data, boosting monitoring efficiency across 100+ outlets.',
       'Modeled user order flows and behavior, informing UI/UX updates that improved conversions by 15%.',
-      'Explored ML-based tax categorization methods, reducing reporting errors by 25%.'
+      'Explored ML-based tax categorization methods, reducing reporting errors by 25%.',
     ],
-    technologies: ['Python', 'SQL', 'Tableau', 'Data Analytics', 'Machine Learning', 'Pandas'],
-    achievement: 'Improved reporting speed by 40% and conversions by 15% through data-driven insights'
+    tech: ['Python', 'SQL', 'Tableau', 'Machine Learning', 'Pandas', 'Data Analytics'],
+    achievement: '40% faster reporting speed · 15% conversion improvement · 25% fewer errors',
   },
   {
     role: 'Data Scientist',
     company: 'General Motors',
-    location: 'Warren, Michigan, USA',
+    location: 'Warren, MI · USA',
     period: 'Jul 2022 – Jun 2024',
     details: [
       'Built 15+ APIs for OnStar customers using vehicle telemetry data, serving 30,000+ users across GM regions.',
-      'Engineered data pipelines enabling real-time analytics and reducing reporting latency by 20% for business teams.',
-      'Developed CI/CD workflows on Azure accelerating model deployment by 85% and improving system reliability.',
-      'Created interactive dashboards and KPI trackers transforming raw data into actionable business insights.',
-      'Implemented validation frameworks ensuring 95%+ data accuracy across enterprise analytics platforms.'
+      'Engineered data pipelines enabling real-time analytics, reducing reporting latency by 20%.',
+      'Developed CI/CD workflows on Azure, accelerating model deployment by 85% and improving system reliability.',
+      'Implemented validation frameworks ensuring 95%+ data accuracy across enterprise analytics platforms.',
     ],
-    technologies: ['Azure', 'CI/CD', 'Python', 'API Development', 'Grafana', 'Spark', 'Data Pipelines'],
-    achievement: 'Reduced reporting latency by 20% and accelerated deployment by 85%'
+    tech: ['Azure', 'CI/CD', 'Python', 'FastAPI', 'Grafana', 'Spark', 'Data Pipelines'],
+    achievement: 'Reduced reporting latency 20% · Accelerated deployment 85% · 30K+ users served',
   },
   {
     role: 'Data Analyst',
     company: 'General Motors',
-    location: 'Warren, Michigan, USA',
+    location: 'Warren, MI · USA',
     period: 'Jun 2021 – Jun 2022',
     details: [
       'Validated 400+ API endpoints ensuring 90%+ data accuracy for enterprise analytics.',
-      'Developed 100+ test cases in JIRA verifying data pipelines, dashboards, and ML model outputs, reducing errors by 25%.',
-      'Implemented anomaly detection systems identifying data quality issues before impacting analytics workflows.',
-      'Documented validation processes and data issues, streamlining reporting cycles and improving team efficiency by 15%.',
-      'Mentored junior analysts on data validation best practices and quality assurance methodologies.'
+      'Developed 100+ test cases in JIRA verifying data pipelines, dashboards, and ML model outputs.',
+      'Implemented anomaly detection systems, reducing errors by 25%.',
+      'Mentored junior analysts on data validation best practices and quality assurance methodologies.',
     ],
-    technologies: ['Python', 'SQL', 'JIRA', 'API Testing', 'Quality Assurance', 'Data Validation'],
-    achievement: 'Reduced errors by 25% and improved team efficiency by 15%'
+    tech: ['Python', 'SQL', 'JIRA', 'API Testing', 'Quality Assurance', 'Data Validation'],
+    achievement: 'Reduced errors 25% · Improved team efficiency 15%',
   },
   {
-    role: 'Android Application Developer Intern',
+    role: 'Android App Developer Intern',
     company: 'Silicon IT Hub Pvt Ltd.',
-    location: 'Ahmedabad, Gujarat, India',
+    location: 'Ahmedabad, India',
     period: 'Sep 2020 – Jan 2021',
     details: [
-      'Designed Android app to identify nearby truck parking facilities using GPS, improving logistics efficiency.',
-      'Reduced downtime for truck drivers through intelligent parking location recommendations.'
+      'Designed Android app to identify nearby truck parking facilities using GPS.',
+      'Reduced driver downtime through intelligent parking location recommendations.',
     ],
-    technologies: ['Android', 'Java', 'GPS Integration', 'Mobile Development', 'UI/UX'],
-    achievement: 'Successfully deployed application improving logistics efficiency'
-  }
+    tech: ['Android', 'Java', 'GPS Integration', 'Mobile Dev', 'UI/UX'],
+    achievement: 'Successfully deployed app improving logistics efficiency',
+  },
 ];
 
 const Experience = ({ focusedSection }) => {
@@ -97,59 +93,48 @@ const Experience = ({ focusedSection }) => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      },
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) e.target.classList.add('active'); },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
   }, []);
 
-  const isFaded = focusedSection && focusedSection !== 'experience';
-
   return (
-    <section id="experience" className={isFaded ? 'section faded' : 'section'}>
+    <section id="experience" className={`section ${focusedSection && focusedSection !== 'experience' ? 'faded' : ''}`}>
       <div ref={sectionRef} className="reveal">
-        <div ref={ref} className={`experience fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-          <h2>Professional Experience</h2>
-          <div className="experience-timeline">
-            {experiences.map(({ role, company, location, period, details, technologies, achievement }, index) => (
-              <div key={index} className="experience-item">
-                <div className="experience-marker"></div>
-                <div className="experience-card">
-                  <div className="experience-header">
-                    <div className="experience-title">
-                      <h3 className="experience-role">{role}</h3>
-                      <div className="experience-company">{company}</div>
-                      <div className="experience-location">{location}</div>
+        <div ref={ref} className="exp-wrap">
+          <p className="section-label">02 — Experience</p>
+          <h2 className="section-title">Where I've Worked</h2>
+
+          <div className="exp-timeline">
+            {experiences.map((exp, i) => (
+              <div key={i} className="exp-item">
+                <div className="exp-card">
+                  <div className="exp-header">
+                    <div>
+                      <div className="exp-role">{exp.role}</div>
+                      <div className="exp-meta">
+                        <span className="exp-company">{exp.company}</span>
+                        <span className="exp-location">{exp.location}</span>
+                      </div>
                     </div>
-                    <div className="experience-period">{period}</div>
+                    <span className="exp-period">{exp.period}</span>
                   </div>
 
-                  <ul className="experience-details">
-                    {details.map((point, i) => (
-                      <li key={i}>{point}</li>
-                    ))}
+                  <ul className="exp-details">
+                    {exp.details.map((d, j) => <li key={j}>{d}</li>)}
                   </ul>
 
-                  {achievement && (
-                    <div className="experience-achievement">
-                      <span className="achievement-label">Key Achievement:</span> {achievement}
+                  {exp.achievement && (
+                    <div className="exp-achievement">
+                      <strong>⚡ Key Impact:</strong> {exp.achievement}
                     </div>
                   )}
 
-                  <div className="experience-tech">
-                    {technologies.map((tech, i) => (
-                      <span key={i} className="tech-tag">{tech}</span>
-                    ))}
+                  <div className="exp-tech">
+                    {exp.tech.map(t => <span key={t} className="tech-chip">{t}</span>)}
                   </div>
                 </div>
               </div>

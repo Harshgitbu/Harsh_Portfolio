@@ -6,7 +6,6 @@ const useFadeInOnScroll = (threshold = 0.1) => {
 
   useEffect(() => {
     const currentRef = domRef.current;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -16,14 +15,8 @@ const useFadeInOnScroll = (threshold = 0.1) => {
       },
       { threshold }
     );
-
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
+    if (currentRef) observer.observe(currentRef);
+    return () => { if (currentRef) observer.unobserve(currentRef); };
   }, [threshold]);
 
   return [domRef, isVisible];

@@ -1,262 +1,149 @@
 import React, { useEffect, useState, useRef } from 'react';
 import useFadeInOnScroll from '../../hooks/useFadeInOnScroll';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheck, FaGlobe } from 'react-icons/fa';
 import './Contact.css';
 
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaLinkedin, FaGithub, FaPaperPlane, FaCheck, FaGlobe } from 'react-icons/fa';
+const methods = [
+  { icon: <FaEnvelope />, title: 'Email', val: 'harshtemp612@gmail.com', href: 'mailto:harshtemp612@gmail.com' },
+  { icon: <FaPhone />, title: 'Phone', val: '+91 9023974413', href: 'tel:+919023974413' },
+  { icon: <FaMapMarkerAlt />, title: 'Location', val: 'Ahmedabad, India', href: 'https://maps.google.com/?q=Ahmedabad,Gujarat,India' },
+];
+
+const socials = [
+  { icon: <FaLinkedin />, href: 'https://www.linkedin.com/in/harsh612/', label: 'LinkedIn' },
+  { icon: <FaGithub />, href: 'https://github.com/Harshgitbu', label: 'GitHub' },
+  { icon: <FaGlobe />, href: 'https://harshshah-portfolio.netlify.app', label: 'Portfolio' },
+];
 
 const Contact = ({ focusedSection }) => {
   const [ref, isVisible] = useFadeInOnScroll();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      },
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) e.target.classList.add('active'); },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
   }, []);
 
-  const contactMethods = [
-    {
-      icon: <FaEnvelope />,
-      title: 'Email',
-      details: 'harshtemp612@gmail.com',
-      link: 'mailto:harshtemp612@gmail.com'
-    },
-    {
-      icon: <FaPhone />,
-      title: 'Phone',
-      details: '+91 9023974413',
-      link: 'tel:+919023974413'
-    },
-    {
-      icon: <FaMapMarkerAlt />,
-      title: 'Location',
-      details: 'Ahmedabad, Gujarat, India',
-      link: 'https://maps.google.com/?q=Ahmedabad,Gujarat,India'
-    }
-  ];
-
-  const socialLinks = [
-    { icon: <FaLinkedin />, url: 'https://www.linkedin.com/in/harsh612/', label: 'LinkedIn' },
-    { icon: <FaGithub />, url: 'https://github.com/Harshgitbu', label: 'GitHub' },
-    { icon: <FaGlobe />, url: 'https://harshshah-portfolio.netlify.app', label: 'Portfolio' },
-    { icon: <FaEnvelope />, url: 'mailto:harshtemp612@gmail.com', label: 'Email' }
-  ];
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
-    }
-    return newErrors;
+  const validate = () => {
+    const e = {};
+    if (!form.name.trim()) e.name = 'Name is required';
+    if (!form.email.trim()) e.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(form.email)) e.email = 'Invalid email';
+    if (!form.subject.trim()) e.subject = 'Subject is required';
+    if (!form.message.trim() || form.message.trim().length < 10) e.message = 'At least 10 chars required';
+    return e;
   };
 
-  const handleInputChange = (e) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
+    setForm(p => ({ ...p, [name]: value }));
+    if (errors[name]) setErrors(p => ({ ...p, [name]: '' }));
   };
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = validateForm();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-    setIsSubmitting(true);
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Form submitted:', formData);
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setErrors({});
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setErrors({ submit: 'Failed to send message. Please try again.' });
-    } finally {
-      setIsSubmitting(false);
-    }
+    const errs = validate();
+    if (Object.keys(errs).length) { setErrors(errs); return; }
+    setSubmitting(true);
+    await new Promise(r => setTimeout(r, 1400));
+    setSubmitting(false);
+    setSubmitted(true);
+    setForm({ name: '', email: '', subject: '', message: '' });
   };
-
-  const isFaded = focusedSection && focusedSection !== 'contact';
-
-  if (isSubmitted) {
-    return (
-      <section id="contact" className={isFaded ? 'section faded' : 'section'}>
-        <div ref={sectionRef} className="reveal">
-          <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-            <h2>Get In Touch</h2>
-            <div className="success-message">
-              <FaCheck style={{ marginRight: '0.5rem' }} />
-              Thank you for your message! I'll get back to you within 24 hours.
-            </div>
-            <div className="contact-content">
-              <div className="contact-info">
-                <p className="contact-description">
-                  In the meantime, feel free to connect with me through any of these channels:
-                </p>
-                <div className="contact-methods">
-                  {contactMethods.map((method, index) => (
-                    <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
-                      <div className="contact-icon">{method.icon}</div>
-                      <div className="contact-details">
-                        <h3>{method.title}</h3>
-                        <p>{method.details}</p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
-    <section id="contact" className={isFaded ? 'section faded' : 'section'}>
+    <section id="contact" className={`section ${focusedSection && focusedSection !== 'contact' ? 'faded' : ''}`}>
       <div ref={sectionRef} className="reveal">
-        <div ref={ref} className={`contact fade-in-section ${isVisible ? 'is-visible' : ''}`}>
-          <h2>Get In Touch</h2>
+        <div ref={ref} className="contact-wrap">
+          <p className="section-label">05 — Contact</p>
+          <h2 className="section-title">Let's Build Together</h2>
 
-          <div className="contact-content">
-            <div className="contact-info">
-              <p className="contact-description">
+          <div className="contact-grid">
+            <div>
+              <p className="contact-desc">
                 I'm currently available for AI Engineer and Data Scientist opportunities.
-                Whether you have a project in mind or just want to connect, feel free to reach out!
+                Whether you have a project in mind, want to collaborate, or just want to connect — drop a message.
               </p>
 
               <div className="contact-methods">
-                {contactMethods.map((method, index) => (
-                  <a key={index} href={method.link} className="contact-method" target="_blank" rel="noopener noreferrer">
-                    <div className="contact-icon">{method.icon}</div>
-                    <div className="contact-details">
-                      <h3>{method.title}</h3>
-                      <p>{method.details}</p>
+                {methods.map(m => (
+                  <a key={m.title} href={m.href} className="contact-method" target="_blank" rel="noopener noreferrer">
+                    <div className="method-icon">{m.icon}</div>
+                    <div>
+                      <div className="method-title">{m.title}</div>
+                      <div className="method-val">{m.val}</div>
                     </div>
                   </a>
                 ))}
               </div>
 
-              <div className="social-links-contact">
-                {socialLinks.map((social, index) => (
-                  <a key={index} href={social.url} className="social-link-contact" target="_blank" rel="noopener noreferrer" aria-label={social.label}>
-                    {social.icon}
+              <div className="contact-socials">
+                {socials.map(s => (
+                  <a key={s.label} href={s.href} className="social-btn" target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+                    {s.icon}
                   </a>
                 ))}
               </div>
 
-              <div className="availability">
-                <div className="availability-dot"></div>
-                <span className="availability-text">Available for opportunities | 4+ years experience</span>
+              <div className="avail-badge">
+                <div className="avail-dot" />
+                <span className="avail-text">Open to work · 4+ years experience</span>
               </div>
             </div>
 
-            <div className="contact-form-container">
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label htmlFor="name" className="form-label">Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className={`form-input ${errors.name ? 'error' : ''}`}
-                    placeholder="Your full name"
-                  />
-                  {errors.name && <span className="error-message">{errors.name}</span>}
+            <div className="contact-form-card">
+              {submitted ? (
+                <div className="success-card">
+                  <FaCheck style={{ fontSize: '2rem', marginBottom: '1rem', display: 'block', margin: '0 auto 1rem' }} />
+                  <strong>Message sent!</strong> I'll get back to you within 24 hours.
                 </div>
+              ) : (
+                <form className="contact-form" onSubmit={onSubmit}>
+                  {[
+                    { name: 'name', label: 'Full Name', type: 'text', placeholder: 'Your name' },
+                    { name: 'email', label: 'Email Address', type: 'email', placeholder: 'your@email.com' },
+                    { name: 'subject', label: 'Subject', type: 'text', placeholder: "What's this about?" },
+                  ].map(f => (
+                    <div key={f.name} className="form-group">
+                      <label className="form-label">{f.label}</label>
+                      <input
+                        type={f.type}
+                        name={f.name}
+                        value={form[f.name]}
+                        onChange={onChange}
+                        placeholder={f.placeholder}
+                        className={`form-input ${errors[f.name] ? 'err' : ''}`}
+                      />
+                      {errors[f.name] && <span className="field-error">{errors[f.name]}</span>}
+                    </div>
+                  ))}
 
-                <div className="form-group">
-                  <label htmlFor="email" className="form-label">Email Address</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className={`form-input ${errors.email ? 'error' : ''}`}
-                    placeholder="your.email@example.com"
-                  />
-                  {errors.email && <span className="error-message">{errors.email}</span>}
-                </div>
+                  <div className="form-group">
+                    <label className="form-label">Message</label>
+                    <textarea
+                      name="message"
+                      value={form.message}
+                      onChange={onChange}
+                      placeholder="Tell me about your project or opportunity..."
+                      className={`form-textarea ${errors.message ? 'err' : ''}`}
+                      rows="5"
+                    />
+                    {errors.message && <span className="field-error">{errors.message}</span>}
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="subject" className="form-label">Subject</label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    className={`form-input ${errors.subject ? 'error' : ''}`}
-                    placeholder="What's this about?"
-                  />
-                  {errors.subject && <span className="error-message">{errors.subject}</span>}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="message" className="form-label">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className={`form-textarea ${errors.message ? 'error' : ''}`}
-                    placeholder="Tell me about your project or opportunity..."
-                    rows="5"
-                  />
-                  {errors.message && <span className="error-message">{errors.message}</span>}
-                </div>
-
-                <button
-                  type="submit"
-                  className={`submit-btn ${isSubmitting ? 'loading' : ''}`}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Sending...' : (
-                    <>
-                      <FaPaperPlane />
-                      Send Message
-                    </>
-                  )}
-                </button>
-
-                {errors.submit && <span className="error-message">{errors.submit}</span>}
-              </form>
+                  <button type="submit" className="submit-btn" disabled={submitting}>
+                    {submitting ? 'Sending...' : <><FaPaperPlane /> Send Message</>}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>
