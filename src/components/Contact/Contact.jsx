@@ -16,7 +16,7 @@ const socials = [
 ];
 
 const Contact = ({ focusedSection }) => {
-  const [ref, isVisible] = useFadeInOnScroll();
+  const [ref] = useFadeInOnScroll();
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);

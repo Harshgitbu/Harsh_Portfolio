@@ -22,7 +22,7 @@ const competencies = {
 };
 
 const About = ({ focusedSection }) => {
-  const [ref, isVisible] = useFadeInOnScroll();
+  const [ref] = useFadeInOnScroll();
   const sectionRef = useRef(null);
 
   useEffect(() => {
